@@ -1,1 +1,0 @@
-# Projekt_Gaisboeck_Gritsch_3A
