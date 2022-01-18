@@ -10,8 +10,8 @@
  */
 public class Bauer extends Figur {
 
-    public Bauer(Position postion) {
-        super(postion);
+    public Bauer(Position postion, boolean isWhite) {
+        super(postion, isWhite);
     }
 
     @Override
@@ -37,12 +37,21 @@ public class Bauer extends Figur {
 
         //1 nach vorne links
         if (felderNachLinks > 0 && felderNachVorne > 0) {
-            possibleMoves[position.Spalte + 1][position.Reihe - 1] = true;
+            possibleMoves[position.Spalte + 1][position.Reihe + 1] = true;
         }
         //1 nach vorne rechts
         if (felderNachRechts < 7 && felderNachVorne > 0) {
             possibleMoves[position.Spalte + 1][position.Reihe + 1] = true;
         }
         return possibleMoves;
+    }
+
+    @Override
+    public String toString() {
+        if (isWhite) {
+            return "WB";
+        } else {
+            return "SB";
+        }
     }
 }

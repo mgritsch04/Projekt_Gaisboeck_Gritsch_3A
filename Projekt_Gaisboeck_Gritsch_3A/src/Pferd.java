@@ -10,8 +10,8 @@
  */
 public class Pferd extends Figur {
 
-    public Pferd(Position position) {
-        super(position);
+    public Pferd(Position position, boolean isWhite) {
+        super(position, isWhite);
     }
 
     @Override
@@ -66,6 +66,15 @@ public class Pferd extends Figur {
         }
 
         return possibleMoves;
+    }
+
+    @Override
+    public String toString() {
+        if (isWhite) {
+            return "WP";
+        } else {
+            return "SP";
+        }
     }
 
 }

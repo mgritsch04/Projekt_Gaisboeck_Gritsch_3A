@@ -10,8 +10,8 @@
  */
 public class Läufer extends Figur {
 
-    public Läufer(Position position) {
-        super(position);
+    public Läufer(Position position, boolean isWhite) {
+        super(position, isWhite);
     }
 
     @Override
@@ -46,6 +46,15 @@ public class Läufer extends Figur {
         }
 
         return possibleMoves;
+    }
+
+    @Override
+    public String toString() {
+        if (isWhite) {
+            return "WL";
+        } else {
+            return "SL";
+        }
     }
 
 }

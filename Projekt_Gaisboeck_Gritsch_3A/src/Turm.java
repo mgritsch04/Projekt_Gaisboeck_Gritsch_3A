@@ -10,8 +10,8 @@
  */
 public class Turm extends Figur {
 
-    public Turm(Position position) {
-        super(position);
+    public Turm(Position position, boolean isWhite) {
+        super(position, isWhite);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Turm extends Figur {
         }
 
         //nach links
-        for (int i = 0; i < felderNachVorne; i++) {
+        for (int i = 0; i < felderNachLinks; i++) {
             possibleMoves[position.Spalte][position.Reihe - i] = true;
         }
 
@@ -47,6 +47,15 @@ public class Turm extends Figur {
         }
 
         return possibleMoves;
+    }
+
+    @Override
+    public String toString() {
+        if (isWhite) {
+            return "WT";
+        } else {
+            return "ST";
+        }
     }
 
 }

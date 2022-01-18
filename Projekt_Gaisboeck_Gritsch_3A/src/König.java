@@ -10,8 +10,8 @@
  */
 public class König extends Figur {
 
-    public König(Position position) {
-        super(position);
+    public König(Position position, boolean isWhite) {
+        super(position, isWhite);
     }
 
     @Override
@@ -46,6 +46,15 @@ public class König extends Figur {
         }
 
         return possibleMoves;
+    }
+
+    @Override
+    public String toString() {
+        if (isWhite) {
+            return "WK";
+        } else {
+            return "SK";
+        }
     }
 
 }
