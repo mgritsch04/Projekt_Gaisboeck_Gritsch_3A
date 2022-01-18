@@ -25,26 +25,23 @@ public class Bauer extends Figur {
             }
         }
 
-        Position aktPos = this.position;
-        int felderNachVorne = 7 - aktPos.Reihe;
-
         //1 nach vorne
-        if (aktPos.Reihe < 7) {
-            possibleMoves[aktPos.Spalte][aktPos.Reihe + 1] = true;
+        if (felderNachVorne > 1) {
+            possibleMoves[position.Spalte][position.Reihe + 1] = true;
         }
 
         //2 nach vorne
-        if (felderNachVorne < 6) {
-            possibleMoves[aktPos.Spalte][aktPos.Reihe + 2] = true;
+        if (felderNachVorne > 2) {
+            possibleMoves[position.Spalte][position.Reihe + 2] = true;
         }
 
         //1 nach vorne links
-        if (aktPos.Spalte > 0) {
-            possibleMoves[aktPos.Spalte + 1][aktPos.Reihe - 1] = true;
+        if (felderNachLinks > 0 && felderNachVorne > 0) {
+            possibleMoves[position.Spalte + 1][position.Reihe - 1] = true;
         }
         //1 nach vorne rechts
-        if (aktPos.Reihe < 7) {
-            possibleMoves[aktPos.Spalte + 1][aktPos.Reihe + 1] = true;
+        if (felderNachRechts < 7 && felderNachVorne > 0) {
+            possibleMoves[position.Spalte + 1][position.Reihe + 1] = true;
         }
         return possibleMoves;
     }

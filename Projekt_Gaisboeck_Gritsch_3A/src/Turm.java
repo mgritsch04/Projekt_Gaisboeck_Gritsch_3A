@@ -25,33 +25,25 @@ public class Turm extends Figur {
             }
         }
 
-        Position aktPos = this.position;
-
         //nach vorne
-        int felderNachVorne = 7 - aktPos.Reihe;
-
         for (int i = 0; i < felderNachVorne; i++) {
-            possibleMoves[aktPos.Spalte][aktPos.Reihe + i] = true;
+            possibleMoves[position.Spalte][position.Reihe + i] = true;
         }
 
-        //nach hinten
-        int felderNachHinten = aktPos.Reihe;
+        //nach hintenss
         for (int i = 0; i < felderNachHinten; i++) {
-            possibleMoves[aktPos.Spalte][aktPos.Reihe - i] = true;
+            possibleMoves[position.Spalte][position.Reihe - i] = true;
 
         }
 
         //nach links
-        int felderNachLinks = aktPos.Spalte;
-
         for (int i = 0; i < felderNachVorne; i++) {
-            possibleMoves[aktPos.Spalte][aktPos.Reihe - i] = true;
+            possibleMoves[position.Spalte][position.Reihe - i] = true;
         }
 
         //nach rechts
-        int felderNachRechts = 7 - aktPos.Spalte;
         for (int i = 0; i < felderNachRechts; i++) {
-            possibleMoves[aktPos.Spalte][aktPos.Reihe + i] = true;
+            possibleMoves[position.Spalte][position.Reihe + i] = true;
         }
 
         return possibleMoves;
