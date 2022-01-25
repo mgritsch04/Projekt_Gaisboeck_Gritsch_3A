@@ -24,7 +24,6 @@ public abstract class Figur {
         felderNachHinten = 7 - position.Reihe;
         felderNachRechts = 7 - position.Spalte;
         felderNachLinks = position.Spalte;
-//        this.possibleMoves = possibleMoves();
         this.isWhite = isWhite;
     }
 
