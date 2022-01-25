@@ -30,6 +30,7 @@ public class Koenig extends Figur {
 
         if (!white) {
             //1 nach vorne
+
             if (felderNachHinten >= 0) {
                 possibleMoves[position.Reihe + 1][position.Spalte] = true;
             }

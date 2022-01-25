@@ -37,7 +37,6 @@ public class Dame extends Figur {
             //nach hintenss
             for (int i = 0; i <= felderNachVorne; i++) {
                 possibleMoves[position.Reihe - i][position.Spalte] = true;
-
             }
 
             //nach links
@@ -111,8 +110,11 @@ public class Dame extends Figur {
                 possibleMoves[position.Reihe - i][position.Spalte + i] = true;
             }
 
-        }
+            for (int i = 0; i < felderNachLinks; i++) {
+                possibleMoves[position.Spalte - 1][position.Reihe] = true;
+            }
 
+        }
         return possibleMoves;
     }
 

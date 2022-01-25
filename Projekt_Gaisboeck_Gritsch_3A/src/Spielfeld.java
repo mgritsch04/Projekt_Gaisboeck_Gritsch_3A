@@ -64,7 +64,6 @@ public class Spielfeld {
         spielfeld[0][5] = l2;
         spielfeld[0][6] = p2;
         spielfeld[0][7] = t2;
-
         //Schwarze Figuren
         Bauer bs1 = new Bauer(new Position(6, 0), true);
         Bauer bs2 = new Bauer(new Position(6, 1), true);
@@ -116,16 +115,6 @@ public class Spielfeld {
         spielfeld[7][5] = l2;
         spielfeld[7][6] = p2;
         spielfeld[7][7] = t2;
-
-//
-//        spielfeld[7][0] = new Turm(new Position(7, 0), true);
-//        spielfeld[7][1] = new Pferd(new Position(7, 1), true);
-//        spielfeld[7][2] = new Laeufer(new Position(7, 2), true);
-////        spielfeld[7][3] = new Dame(new Position(7, 3), true);
-////        spielfeld[7][4] = new Koenig(new Position(7, 4), true);
-//        spielfeld[7][5] = new Laeufer(new Position(7, 5), true);
-//        spielfeld[7][6] = new Pferd(new Position(7, 6), true);
-//        spielfeld[7][7] = new Turm(new Position(7, 7), true);
     }
 
     public void print() {

@@ -29,6 +29,7 @@ public class Laeufer extends Figur {
         }
 
         if (!white) {
+
             //diagonal rechts
             for (int i = 0; i <= felderNachHinten && i <= felderNachRechts; i++) {
                 possibleMoves[position.Reihe + i][position.Spalte + i] = true;
@@ -67,6 +68,7 @@ public class Laeufer extends Figur {
             for (int i = 0; i <= felderNachHinten && i <= felderNachLinks; i++) {
                 possibleMoves[position.Reihe - i][position.Spalte + i] = true;
             }
+
         }
 
         return possibleMoves;
