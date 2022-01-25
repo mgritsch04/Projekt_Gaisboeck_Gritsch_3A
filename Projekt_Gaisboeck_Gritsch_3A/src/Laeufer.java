@@ -8,10 +8,13 @@
  *
  * @author maxim
  */
-public class Läufer extends Figur {
+public class Laeufer extends Figur {
 
-    public Läufer(Position position, boolean isWhite) {
+    boolean white;
+
+    public Laeufer(Position position, boolean isWhite) {
         super(position, isWhite);
+        white = isWhite;
     }
 
     @Override
@@ -25,24 +28,46 @@ public class Läufer extends Figur {
             }
         }
 
-        //diagonal links
-        for (int i = 0; i < felderNachVorne && i < felderNachLinks; i++) {
-            possibleMoves[position.Spalte - 1][position.Reihe + 1] = true;
-        }
+        if (!white) {
+            //diagonal links
+            for (int i = 0; i < felderNachHinten && i < felderNachLinks; i++) {
+                possibleMoves[position.Spalte - 1][position.Reihe + 1] = true;
+            }
 
-        //diagonal rechts
-        for (int i = 0; i < felderNachVorne && i < felderNachRechts; i++) {
-            possibleMoves[position.Spalte + 1][position.Reihe + 1] = true;
-        }
+            //diagonal rechts
+            for (int i = 0; i < felderNachHinten && i < felderNachRechts; i++) {
+                possibleMoves[position.Spalte + 1][position.Reihe + 1] = true;
+            }
 
-        //digonal links hinten
-        for (int i = 0; i < felderNachHinten && i < felderNachLinks; i++) {
-            possibleMoves[position.Spalte - 1][position.Reihe - 1] = true;
-        }
+            //digonal links hinten
+            for (int i = 0; i < felderNachVorne && i < felderNachLinks; i++) {
+                possibleMoves[position.Spalte - 1][position.Reihe - 1] = true;
+            }
 
-        //diagonal rechts hinten
-        for (int i = 0; i < felderNachHinten && i < felderNachLinks; i++) {
-            possibleMoves[position.Spalte + 1][position.Reihe - 1] = true;
+            //diagonal rechts hinten
+            for (int i = 0; i < felderNachVorne && i < felderNachRechts; i++) {
+                possibleMoves[position.Spalte + 1][position.Reihe - 1] = true;
+            }
+        } else {
+            //diagonal links
+            for (int i = 0; i < felderNachVorne && i < felderNachLinks; i++) {
+                possibleMoves[position.Spalte - 1][position.Reihe + 1] = true;
+            }
+
+            //diagonal rechts
+            for (int i = 0; i < felderNachVorne && i < felderNachRechts; i++) {
+                possibleMoves[position.Spalte + 1][position.Reihe + 1] = true;
+            }
+
+            //digonal links hinten
+            for (int i = 0; i < felderNachHinten && i < felderNachLinks; i++) {
+                possibleMoves[position.Spalte - 1][position.Reihe - 1] = true;
+            }
+
+            //diagonal rechts hinten
+            for (int i = 0; i < felderNachHinten && i < felderNachLinks; i++) {
+                possibleMoves[position.Spalte + 1][position.Reihe - 1] = true;
+            }
         }
 
         return possibleMoves;

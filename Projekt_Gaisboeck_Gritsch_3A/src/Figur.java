@@ -20,11 +20,11 @@ public abstract class Figur {
 
     public Figur(Position position, Boolean isWhite) {
         this.position = position;
-        felderNachVorne = 7 - position.Reihe;
-        felderNachHinten = position.Reihe;
+        felderNachVorne = position.Reihe - 1;
+        felderNachHinten = 7 - position.Reihe;
         felderNachRechts = 7 - position.Spalte;
         felderNachLinks = position.Spalte;
-        this.possibleMoves = possibleMoves();
+//        this.possibleMoves = possibleMoves();
         this.isWhite = isWhite;
     }
 

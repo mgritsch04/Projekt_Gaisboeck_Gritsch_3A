@@ -10,8 +10,11 @@
  */
 public class Turm extends Figur {
 
+    boolean white;
+
     public Turm(Position position, boolean isWhite) {
         super(position, isWhite);
+        white = isWhite;
     }
 
     @Override
@@ -25,25 +28,48 @@ public class Turm extends Figur {
             }
         }
 
-        //nach vorne
-        for (int i = 0; i < felderNachVorne; i++) {
-            possibleMoves[position.Spalte][position.Reihe + i] = true;
-        }
+        if (!white) {
+            //nach vorne
+            for (int i = 0; i < felderNachHinten; i++) {
+                possibleMoves[position.Spalte][position.Reihe + i] = true;
+            }
 
-        //nach hintenss
-        for (int i = 0; i < felderNachHinten; i++) {
-            possibleMoves[position.Spalte][position.Reihe - i] = true;
+            //nach hintenss
+            for (int i = 0; i < felderNachVorne; i++) {
+                possibleMoves[position.Spalte][position.Reihe - i] = true;
 
-        }
+            }
 
-        //nach links
-        for (int i = 0; i < felderNachLinks; i++) {
-            possibleMoves[position.Spalte][position.Reihe - i] = true;
-        }
+            //nach links
+            for (int i = 0; i < felderNachLinks; i++) {
+                possibleMoves[position.Spalte - 1][position.Reihe] = true;
+            }
 
-        //nach rechts
-        for (int i = 0; i < felderNachRechts; i++) {
-            possibleMoves[position.Spalte][position.Reihe + i] = true;
+            //nach rechts
+            for (int i = 0; i < felderNachRechts; i++) {
+                possibleMoves[position.Spalte + i][position.Reihe] = true;
+            }
+        } else {
+            //nach vorne
+            for (int i = 0; i < felderNachVorne; i++) {
+                possibleMoves[position.Spalte][position.Reihe + i] = true;
+            }
+
+            //nach hintenss
+            for (int i = 0; i < felderNachHinten; i++) {
+                possibleMoves[position.Spalte][position.Reihe - i] = true;
+
+            }
+
+            //nach links
+            for (int i = 0; i < felderNachLinks; i++) {
+                possibleMoves[position.Spalte - 1][position.Reihe] = true;
+            }
+
+            //nach rechts
+            for (int i = 0; i < felderNachRechts; i++) {
+                possibleMoves[position.Spalte + i][position.Reihe] = true;
+            }
         }
 
         return possibleMoves;
