@@ -30,86 +30,87 @@ public class Dame extends Figur {
 
         if (!white) {
             //nach vorne
-            for (int i = 0; i < felderNachHinten; i++) {
-                possibleMoves[position.Spalte][position.Reihe + i] = true;
+            for (int i = 0; i <= felderNachHinten; i++) {
+                possibleMoves[position.Reihe + i][position.Spalte] = true;
             }
 
             //nach hintenss
-            for (int i = 0; i < felderNachVorne; i++) {
-                possibleMoves[position.Spalte][position.Reihe - i] = true;
+            for (int i = 0; i <= felderNachVorne; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte] = true;
 
             }
 
             //nach links
-            for (int i = 0; i < felderNachLinks; i++) {
-                possibleMoves[position.Spalte - 1][position.Reihe] = true;
+            for (int i = 0; i <= felderNachLinks; i++) {
+                possibleMoves[position.Reihe][position.Spalte - i] = true;
             }
 
             //nach rechts
-            for (int i = 0; i < felderNachRechts; i++) {
-                possibleMoves[position.Spalte + 1][position.Reihe] = true;
+            for (int i = 0; i <= felderNachRechts; i++) {
+                possibleMoves[position.Reihe][position.Spalte + i] = true;
             }
 
             //diagonal links
-            for (int i = 0; i < felderNachHinten && i < felderNachLinks; i++) {
-                possibleMoves[position.Spalte - 1][position.Reihe + 1] = true;
+            for (int i = 0; i <= felderNachHinten && i <= felderNachLinks; i++) {
+                possibleMoves[position.Reihe + i][position.Spalte - i] = true;
             }
 
             //diagonal rechts
-            for (int i = 0; i < felderNachHinten && i < felderNachRechts; i++) {
-                possibleMoves[position.Spalte + 1][position.Reihe + 1] = true;
+            for (int i = 0; i <= felderNachHinten && i <= felderNachRechts; i++) {
+                possibleMoves[position.Reihe + i][position.Spalte + i] = true;
             }
 
             //digonal links hinten
-            for (int i = 0; i < felderNachVorne && i < felderNachLinks; i++) {
-                possibleMoves[position.Spalte - 1][position.Reihe - 1] = true;
+            for (int i = 0; i <= felderNachVorne && i <= felderNachLinks; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte - i] = true;
             }
 
             //diagonal rechts hinten
-            for (int i = 0; i < felderNachVorne && i < felderNachRechts; i++) {
-                possibleMoves[position.Spalte + 1][position.Reihe - 1] = true;
+            for (int i = 0; i <= felderNachVorne && i <= felderNachRechts; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte + i] = true;
             }
-        }
+        } else {
+            //nach vorne
+            for (int i = 0; i <= felderNachVorne; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte] = true;
+            }
 
-        //nach vorne
-        for (int i = 0; i < felderNachVorne; i++) {
-            possibleMoves[position.Spalte][position.Reihe + i] = true;
-        }
+            //nach hintenss
+            for (int i = 0; i <= felderNachHinten; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte] = true;
 
-        //nach hintenss
-        for (int i = 0; i < felderNachHinten; i++) {
-            possibleMoves[position.Spalte][position.Reihe - i] = true;
+            }
 
-        }
+            //nach links
+            for (int i = 0; i <= felderNachLinks; i++) {
+                possibleMoves[position.Reihe][position.Spalte - i] = true;
+            }
 
-        //nach links
-        for (int i = 0; i < felderNachLinks; i++) {
-            possibleMoves[position.Spalte - 1][position.Reihe] = true;
-        }
+            //nach rechts
+            for (int i = 0; i <= felderNachRechts; i++) {
+                possibleMoves[position.Reihe][position.Spalte + i] = true;
+            }
 
-        //nach rechts
-        for (int i = 0; i < felderNachRechts; i++) {
-            possibleMoves[position.Spalte + 1][position.Reihe] = true;
-        }
+            //diagonal links
+            for (int i = 0; i <= felderNachVorne && i <= felderNachLinks; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte - i] = true;
+            }
 
-        //diagonal links
-        for (int i = 0; i < felderNachVorne && i < felderNachLinks; i++) {
-            possibleMoves[position.Spalte - 1][position.Reihe + 1] = true;
-        }
+            //diagonal rechts
+            for (int i = 0; i <= felderNachVorne && i <= felderNachRechts; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte + i] = true;
+            }
 
-        //diagonal rechts
-        for (int i = 0; i < felderNachVorne && i < felderNachRechts; i++) {
-            possibleMoves[position.Spalte + 1][position.Reihe + 1] = true;
-        }
+            //digonal links hinten
+            for (int i = 0; i <= felderNachHinten && i <= felderNachLinks; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte - i] = true;
+            }
 
-        //digonal links hinten
-        for (int i = 0; i < felderNachHinten && i < felderNachLinks; i++) {
-            possibleMoves[position.Spalte - 1][position.Reihe - 1] = true;
-        }
+            //diagonal rechts hinten
+            for (int i = 0; i <= felderNachHinten && i <= felderNachRechts; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte + i] = true;
+            }
 
-        //diagonal rechts hinten
-        for (int i = 0; i < felderNachHinten && i < felderNachRechts; i++) {
-            possibleMoves[position.Spalte + 1][position.Reihe - 1] = true;
         }
 
         return possibleMoves;
