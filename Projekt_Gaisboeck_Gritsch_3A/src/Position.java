@@ -13,7 +13,7 @@ public class Position {
     int Spalte;
     int Reihe;
 
-    public Position(int Spalte, int Reihe) {
+    public Position(int Reihe, int Spalte) {
         this.Spalte = Spalte;
         this.Reihe = Reihe;
     }

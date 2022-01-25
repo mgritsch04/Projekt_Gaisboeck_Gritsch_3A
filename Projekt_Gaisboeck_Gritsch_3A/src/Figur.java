@@ -10,6 +10,7 @@
  */
 public abstract class Figur {
 
+    Boolean isWhite;
     Position position;
     int felderNachVorne;
     int felderNachHinten;
@@ -17,15 +18,18 @@ public abstract class Figur {
     int felderNachLinks;
     boolean[][] possibleMoves;
 
-    public Figur(Position position) {
+    public Figur(Position position, Boolean isWhite) {
         this.position = position;
-        felderNachVorne = 7 - position.Reihe;
-        felderNachHinten = position.Reihe;
+        felderNachVorne = position.Reihe - 1;
+        felderNachHinten = 7 - position.Reihe;
         felderNachRechts = 7 - position.Spalte;
         felderNachLinks = position.Spalte;
-        this.possibleMoves = possibleMoves();
+//        this.possibleMoves = possibleMoves();
+        this.isWhite = isWhite;
     }
 
     public abstract boolean[][] possibleMoves();
+
+    public abstract String toString();
 
 }

@@ -10,8 +10,14 @@
  */
 public class Bauer extends Figur {
 
-    public Bauer(Position postion) {
-        super(postion);
+    boolean white;
+//    Position position;
+
+    public Bauer(Position postion, boolean isWhite) {
+        super(postion, isWhite);
+        white = isWhite;
+        possibleMoves();
+        position = postion;
     }
 
     @Override
@@ -25,24 +31,54 @@ public class Bauer extends Figur {
             }
         }
 
-        //1 nach vorne
-        if (felderNachVorne > 1) {
-            possibleMoves[position.Spalte][position.Reihe + 1] = true;
+        if (white == false) {
+            if (felderNachHinten > 0) {
+                possibleMoves[position.Reihe + 1][position.Spalte] = true;
+            }
+            //2 nach vorne
+            if (felderNachHinten > 1) {
+                possibleMoves[position.Reihe + 2][position.Spalte] = true;
+            }
+
+            //1 nach vorne links
+            if (felderNachLinks > 0 && felderNachHinten > 0) {
+                possibleMoves[position.Reihe + 1][position.Spalte - 1] = true;
+            }
+            //1 nach vorne rechts
+            if (felderNachRechts > 0 && felderNachHinten > 0) {
+                possibleMoves[position.Reihe + 1][position.Spalte + 1] = true;
+            }
+
+        } else {
+            //1 nach vorne
+            if (felderNachVorne > 0) {
+                possibleMoves[position.Reihe - 1][position.Spalte] = true;
+            }
+
+            //2 nach vorne
+            if (felderNachVorne > 1) {
+                possibleMoves[position.Reihe - 2][position.Spalte] = true;
+            }
+
+            //1 nach vorne links
+            if (felderNachLinks > 0 && felderNachVorne > 0) {
+                possibleMoves[position.Reihe - 1][position.Spalte - 1] = true;
+            }
+            //1 nach vorne rechts
+            if (felderNachRechts > 0 && felderNachVorne > 0) {
+                possibleMoves[position.Reihe + 1][position.Spalte + 1] = true;
+            }
         }
 
-        //2 nach vorne
-        if (felderNachVorne > 2) {
-            possibleMoves[position.Spalte][position.Reihe + 2] = true;
-        }
-
-        //1 nach vorne links
-        if (felderNachLinks > 0 && felderNachVorne > 0) {
-            possibleMoves[position.Spalte + 1][position.Reihe - 1] = true;
-        }
-        //1 nach vorne rechts
-        if (felderNachRechts < 7 && felderNachVorne > 0) {
-            possibleMoves[position.Spalte + 1][position.Reihe + 1] = true;
-        }
         return possibleMoves;
+    }
+
+    @Override
+    public String toString() {
+        if (isWhite) {
+            return "WB";
+        } else {
+            return "SB";
+        }
     }
 }
