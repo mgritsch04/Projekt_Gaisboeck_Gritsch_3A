@@ -1,4 +1,6 @@
 
+import java.util.Objects;
+import java.util.Scanner;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -65,33 +67,6 @@ public class Spielfeld {
         spielfeld[0][5] = l2;
         spielfeld[0][6] = p2;
         spielfeld[0][7] = t2;
-//<<<<<<< HEAD
-//        //Schwarze Figuren
-//        Bauer bs1 = new Bauer(new Position(6, 0), true);
-//        Bauer bs2 = new Bauer(new Position(6, 1), true);
-//        Bauer bs3 = new Bauer(new Position(6, 2), true);
-//        Bauer bs4 = new Bauer(new Position(6, 3), true);
-//        Bauer bs5 = new Bauer(new Position(6, 4), true);
-//        Bauer bs6 = new Bauer(new Position(6, 5), true);
-//        Bauer bs7 = new Bauer(new Position(6, 6), true);
-//        Bauer bs8 = new Bauer(new Position(6, 7), true);
-//        bs1.possibleMoves = bs1.possibleMoves();
-//        bs2.possibleMoves = bs2.possibleMoves();
-//        bs3.possibleMoves = bs3.possibleMoves();
-//        bs4.possibleMoves = bs4.possibleMoves();
-//        bs5.possibleMoves = bs5.possibleMoves();
-//        bs6.possibleMoves = bs6.possibleMoves();
-//        bs7.possibleMoves = bs7.possibleMoves();
-//        bs8.possibleMoves = bs8.possibleMoves();
-//        spielfeld[6][0] = bs1;
-//        spielfeld[6][1] = bs2;
-//        spielfeld[6][2] = bs3;
-//        spielfeld[6][3] = bs4;
-//        spielfeld[6][4] = bs5;
-//        spielfeld[6][5] = bs6;
-//        spielfeld[6][6] = bs7;
-//        spielfeld[6][7] = bs8;
-//=======
 
         //Weiße Figuren
         Bauer bw1 = new Bauer(new Position(6, 0), true);
@@ -118,7 +93,6 @@ public class Spielfeld {
         spielfeld[6][5] = bw6;
         spielfeld[6][6] = bw7;
         spielfeld[6][7] = bw8;
-//>>>>>>> Feld
 
         Turm tw1 = new Turm(new Position(7, 0), true);
         tw1.possibleMoves = tw1.possibleMoves();
@@ -137,7 +111,7 @@ public class Spielfeld {
         Turm tw2 = new Turm(new Position(7, 7), true);
         tw2.possibleMoves = tw2.possibleMoves();
 
-        spielfeld[7][0] = tw1;
+        spielfeld[2][0] = tw1;
         spielfeld[7][1] = pw1;
         spielfeld[7][2] = lw1;
         spielfeld[7][3] = dw;
@@ -166,18 +140,184 @@ public class Spielfeld {
         }
     }
 
-    public void testFigur(Figur figure) {
-        for (int i = 0; i < figure.possibleMoves.length; i++) {
-            for (int j = 0; j < figure.possibleMoves[i].length; j++) {
-                System.out.print(figure.possibleMoves[i][j] + " | ");
-
-            }
-            System.out.println("");
-        }
-    }
-
     public static void main(String[] args) {
         Spielfeld s = new Spielfeld();
         s.print();
+
+        s.moveFigure(2, 0, 2, 2);
+        System.out.println("");
+        s.print();
+    }
+
+    public boolean checkPositionForFigure(int reihe, int spalte) {
+        if (spielfeld[reihe][spalte] != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean moveFigure(int reiheAkt, int spalteAkt, int reiheNeu, int spalteNeu) {
+        boolean successMove = true;
+        if (checkPositionForFigure(reiheNeu, spalteNeu)) {
+            if (Objects.equals(spielfeld[reiheAkt][spalteAkt].isWhite, spielfeld[reiheNeu][spalteNeu].isWhite)) {
+                System.out.println("Feld besetzt.");
+                successMove = false;
+            } else {
+                if (spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
+                    spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+                    spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                    spielfeld[reiheAkt][spalteAkt] = null;
+                } else {
+                    successMove = false;
+                    System.out.println("Ungütliger Spielzug");
+                }
+
+            }
+        } else {
+            if (spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
+                spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+                spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                spielfeld[reiheAkt][spalteAkt] = null;
+            } else {
+                successMove = false;
+                System.out.println("Ungütliger Spielzug");
+            }
+        }
+
+        if (successMove) {
+            if (spielfeld[reiheNeu][spalteNeu].isWhite) {
+                if (spielfeld[reiheNeu][spalteNeu].getClass().equals(Bauer.class) && reiheNeu == 0) {
+                    Scanner sc = new Scanner(System.in);
+                    System.out.println("Bauer durch Dame (d), Turm (t), Läufer (l), oder Springer (s) tauschen?");
+                    String newFigure = sc.nextLine();
+                    while (!newFigure.equals('d') && !newFigure.equals('t') && !newFigure.equals('l') && !newFigure.equals('s')) {
+                        newFigure = sc.nextLine();
+                    }
+                    upgradeFigure(reiheNeu, spalteNeu, newFigure);
+                }
+            } else {
+                if (spielfeld[reiheNeu][spalteNeu].getClass().equals(Bauer.class) && reiheNeu == 7) {
+                    Scanner sc = new Scanner(System.in);
+                    System.out.println("Bauer durch Dame (d), Turm (t), Läufer (l), oder Springer (s) tauschen?");
+                    String newFigure = sc.nextLine();
+                    while (!newFigure.equals('d') && !newFigure.equals('t') && !newFigure.equals('l') && !newFigure.equals('s')) {
+                        newFigure = sc.nextLine();
+                    }
+                    upgradeFigure(reiheNeu, spalteNeu, newFigure);
+                }
+            }
+        }
+        return successMove;
+    }
+
+    public void upgradeFigure(int reihe, int spalte, String newFigure) {
+        if (spielfeld[reihe][spalte].isWhite) {
+            switch (newFigure) {
+                case "d":
+                    spielfeld[reihe][spalte] = new Dame(new Position(reihe, spalte), true);
+                    break;
+                case "t":
+                    spielfeld[reihe][spalte] = new Turm(new Position(reihe, spalte), true);
+                    break;
+                case "l":
+                    spielfeld[reihe][spalte] = new Laeufer(new Position(reihe, spalte), true);
+                    break;
+                case "s":
+                    spielfeld[reihe][spalte] = new Springer(new Position(reihe, spalte), true);
+                    break;
+            }
+        } else {
+            switch (newFigure) {
+                case "d":
+                    spielfeld[reihe][spalte] = new Dame(new Position(reihe, spalte), false);
+                    break;
+                case "t":
+                    spielfeld[reihe][spalte] = new Turm(new Position(reihe, spalte), false);
+                    break;
+                case "l":
+                    spielfeld[reihe][spalte] = new Laeufer(new Position(reihe, spalte), false);
+                    break;
+                case "s":
+                    spielfeld[reihe][spalte] = new Springer(new Position(reihe, spalte), false);
+                    break;
+            }
+        }
+
+    }
+
+    public boolean figureBetweenMove(int reiheAkt, int spalteAkt, int reiheNeu, int spalteNeu) {
+        boolean figurebetween = false;
+
+        if (spielfeld[reiheAkt][spalteAkt].isWhite) {
+
+            //vorne
+            if (spalteAkt == spalteNeu) {
+                for (int i = reiheAkt - 1; i > reiheNeu; i--) {
+                    if (checkPositionForFigure(i, spalteAkt)) {
+                        figurebetween = true;
+                    }
+                }
+            }
+
+            //hinten
+            if (spalteAkt == spalteNeu) {
+                for (int i = reiheAkt + 1; i < reiheNeu; i++) {
+                    if (checkPositionForFigure(i, spalteAkt)) {
+                        figurebetween = true;
+                    }
+                }
+            }
+
+            //links
+            if (reiheAkt == reiheNeu) {
+                for (int i = spalteAkt - 1; i > spalteNeu; i--) {
+                    if (checkPositionForFigure(reiheAkt, i)) {
+                        figurebetween = true;
+                    }
+                }
+            }
+            //rechts wip
+            if (reiheAkt == reiheNeu) {
+                for (int i = spalteAkt + 1; i < spalteNeu; i++) {
+                    if (checkPositionForFigure(reiheAkt, i)) {
+                        figurebetween = true;
+                    }
+                }
+            }
+
+            //diagonal rechts vorne
+            //diagonal links vorne
+            //diagonal rechts hinten
+            //diagonal links hinten
+            //bauer erster move 2 nach vorne
+        } else {
+
+            //vorne
+            if (spalteAkt == spalteNeu) {
+                for (int i = reiheNeu; i > reiheAkt; i--) {
+                    if (checkPositionForFigure(i, spalteAkt)) {
+                        figurebetween = true;
+                    }
+                }
+            }
+
+            //hinten
+            //rechts
+            if (reiheAkt == reiheNeu) {
+                for (int i = spalteNeu; i < spalteAkt; i++) {
+                    if (checkPositionForFigure(reiheAkt, i)) {
+                        figurebetween = true;
+                    }
+                }
+            }
+
+        }
+
+        return figurebetween;
+    }
+
+    public boolean checkSchachmatt() {
+
     }
 }
