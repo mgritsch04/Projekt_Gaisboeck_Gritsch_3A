@@ -70,7 +70,7 @@ public class Dame extends Figur {
             }
         } else {
             //nach vorne
-            for (int i = 0; i <= felderNachVorne; i++) {
+            for (int i = 0; i <= felderNachVorne + 1; i++) {
                 possibleMoves[position.Reihe - i][position.Spalte] = true;
             }
 
@@ -120,10 +120,10 @@ public class Dame extends Figur {
 
     @Override
     public String toString() {
-        if (white) {
-            return "WD";
+        if (isWhite) {
+            return "\u2655";
         } else {
-            return "SD";
+            return "\u265B";
         }
     }
 

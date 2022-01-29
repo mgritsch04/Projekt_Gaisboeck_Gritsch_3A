@@ -1,9 +1,10 @@
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author maxim
@@ -13,7 +14,7 @@ public class Spielfeld {
     Figur[][] spielfeld = new Figur[8][8];
 
     public Spielfeld() {
-        //Weiße Figuren
+        //Schwarze Figuren
         Bauer b1 = new Bauer(new Position(1, 0), false);
         Bauer b2 = new Bauer(new Position(1, 1), false);
         Bauer b3 = new Bauer(new Position(1, 2), false);
@@ -64,31 +65,60 @@ public class Spielfeld {
         spielfeld[0][5] = l2;
         spielfeld[0][6] = p2;
         spielfeld[0][7] = t2;
-        //Schwarze Figuren
-        Bauer bs1 = new Bauer(new Position(6, 0), true);
-        Bauer bs2 = new Bauer(new Position(6, 1), true);
-        Bauer bs3 = new Bauer(new Position(6, 2), true);
-        Bauer bs4 = new Bauer(new Position(6, 3), true);
-        Bauer bs5 = new Bauer(new Position(6, 4), true);
-        Bauer bs6 = new Bauer(new Position(6, 5), true);
-        Bauer bs7 = new Bauer(new Position(6, 6), true);
-        Bauer bs8 = new Bauer(new Position(6, 7), true);
-        bs1.possibleMoves = bs1.possibleMoves();
-        bs2.possibleMoves = bs2.possibleMoves();
-        bs3.possibleMoves = bs3.possibleMoves();
-        bs4.possibleMoves = bs4.possibleMoves();
-        bs5.possibleMoves = bs5.possibleMoves();
-        bs6.possibleMoves = bs6.possibleMoves();
-        bs7.possibleMoves = bs7.possibleMoves();
-        bs8.possibleMoves = bs8.possibleMoves();
-        spielfeld[6][0] = bs1;
-        spielfeld[6][1] = bs2;
-        spielfeld[6][2] = bs3;
-        spielfeld[6][3] = bs4;
-        spielfeld[6][4] = bs5;
-        spielfeld[6][5] = bs6;
-        spielfeld[6][6] = bs7;
-        spielfeld[6][7] = bs8;
+//<<<<<<< HEAD
+//        //Schwarze Figuren
+//        Bauer bs1 = new Bauer(new Position(6, 0), true);
+//        Bauer bs2 = new Bauer(new Position(6, 1), true);
+//        Bauer bs3 = new Bauer(new Position(6, 2), true);
+//        Bauer bs4 = new Bauer(new Position(6, 3), true);
+//        Bauer bs5 = new Bauer(new Position(6, 4), true);
+//        Bauer bs6 = new Bauer(new Position(6, 5), true);
+//        Bauer bs7 = new Bauer(new Position(6, 6), true);
+//        Bauer bs8 = new Bauer(new Position(6, 7), true);
+//        bs1.possibleMoves = bs1.possibleMoves();
+//        bs2.possibleMoves = bs2.possibleMoves();
+//        bs3.possibleMoves = bs3.possibleMoves();
+//        bs4.possibleMoves = bs4.possibleMoves();
+//        bs5.possibleMoves = bs5.possibleMoves();
+//        bs6.possibleMoves = bs6.possibleMoves();
+//        bs7.possibleMoves = bs7.possibleMoves();
+//        bs8.possibleMoves = bs8.possibleMoves();
+//        spielfeld[6][0] = bs1;
+//        spielfeld[6][1] = bs2;
+//        spielfeld[6][2] = bs3;
+//        spielfeld[6][3] = bs4;
+//        spielfeld[6][4] = bs5;
+//        spielfeld[6][5] = bs6;
+//        spielfeld[6][6] = bs7;
+//        spielfeld[6][7] = bs8;
+//=======
+
+        //Weiße Figuren
+        Bauer bw1 = new Bauer(new Position(6, 0), true);
+        Bauer bw2 = new Bauer(new Position(6, 1), true);
+        Bauer bw3 = new Bauer(new Position(6, 2), true);
+        Bauer bw4 = new Bauer(new Position(6, 3), true);
+        Bauer bw5 = new Bauer(new Position(6, 4), true);
+        Bauer bw6 = new Bauer(new Position(6, 5), true);
+        Bauer bw7 = new Bauer(new Position(6, 6), true);
+        Bauer bw8 = new Bauer(new Position(6, 7), true);
+        bw1.possibleMoves = bw1.possibleMoves();
+        bw2.possibleMoves = bw2.possibleMoves();
+        bw3.possibleMoves = bw3.possibleMoves();
+        bw4.possibleMoves = bw4.possibleMoves();
+        bw5.possibleMoves = bw5.possibleMoves();
+        bw6.possibleMoves = bw6.possibleMoves();
+        bw7.possibleMoves = bw7.possibleMoves();
+        bw8.possibleMoves = bw8.possibleMoves();
+        spielfeld[6][0] = bw1;
+        spielfeld[6][1] = bw2;
+        spielfeld[6][2] = bw3;
+        spielfeld[6][3] = bw4;
+        spielfeld[6][4] = bw5;
+        spielfeld[6][5] = bw6;
+        spielfeld[6][6] = bw7;
+        spielfeld[6][7] = bw8;
+//>>>>>>> Feld
 
         Turm tw1 = new Turm(new Position(7, 0), true);
         tw1.possibleMoves = tw1.possibleMoves();
@@ -107,26 +137,24 @@ public class Spielfeld {
         Turm tw2 = new Turm(new Position(7, 7), true);
         tw2.possibleMoves = tw2.possibleMoves();
 
-        spielfeld[7][0] = t1;
-        spielfeld[7][1] = p1;
-        spielfeld[7][2] = l1;
-        spielfeld[7][3] = d;
-        spielfeld[7][4] = k;
-        spielfeld[7][5] = l2;
-        spielfeld[7][6] = p2;
-        spielfeld[7][7] = t2;
-
-        testFigur(t2);
+        spielfeld[7][0] = tw1;
+        spielfeld[7][1] = pw1;
+        spielfeld[7][2] = lw1;
+        spielfeld[7][3] = dw;
+        spielfeld[7][4] = kw;
+        spielfeld[7][5] = lw2;
+        spielfeld[7][6] = pw2;
+        spielfeld[7][7] = tw2;
     }
 
     public void print() {
-        System.out.println("        0    1    2    3    4    5    6    7");
-        System.out.println("     -----------------------------------------");
+        System.out.println(" \u2009    0 \u2009\u2009  1 \u2009\u2009  2 \u2009\u2009  3 \u2009\u2009  4 \u2009\u2009  5  \u2009\u2009 6 \u2009\u2009  7");
+        System.out.println("     -------------------------------------");
         for (int i = 0; i < spielfeld.length; i++) {
-            System.out.print(i + "    |");
+            System.out.print(i + "   ");
             for (int j = 0; j < spielfeld.length; j++) {
                 if (spielfeld[i][j] == null) {
-                    System.out.print("    |");
+                    System.out.print("\u2009\u2009\u2009\u2009\u2009\u2009\u2009\u2009\u2009\u2009|");
                 } else {
                     System.out.print(" " + spielfeld[i][j].toString() + " |");
                 }
@@ -134,8 +162,7 @@ public class Spielfeld {
             }
 
             System.out.println("");
-            System.out.println("     -----------------------------------------");
-
+            System.out.println("     -------------------------------------");
         }
     }
 

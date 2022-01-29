@@ -116,10 +116,10 @@ public class Koenig extends Figur {
 
     @Override
     public String toString() {
-        if (white) {
-            return "WK";
+        if (isWhite) {
+            return "\u2654";
         } else {
-            return "SK";
+            return "\u265A";
         }
     }
 
