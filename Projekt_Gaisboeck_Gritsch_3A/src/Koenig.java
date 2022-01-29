@@ -116,9 +116,9 @@ public class Koenig extends Figur {
     @Override
     public String toString() {
         if (isWhite) {
-            return "WK";
+            return "\u2654";
         } else {
-            return "SK";
+            return "\u265A";
         }
     }
 

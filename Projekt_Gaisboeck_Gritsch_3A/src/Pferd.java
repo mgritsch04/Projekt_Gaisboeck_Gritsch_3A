@@ -116,9 +116,9 @@ public class Pferd extends Figur {
     @Override
     public String toString() {
         if (isWhite) {
-            return "WP";
+            return "\u2658";
         } else {
-            return "SP";
+            return "\uu265e";
         }
     }
 

@@ -75,9 +75,9 @@ public class Laeufer extends Figur {
     @Override
     public String toString() {
         if (isWhite) {
-            return "WL";
+            return "\u2657";
         } else {
-            return "SL";
+            return "\u265d";
         }
     }
 
