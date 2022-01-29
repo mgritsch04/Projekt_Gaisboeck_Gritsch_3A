@@ -136,7 +136,7 @@ public class Pferd extends Figur {
 
     @Override
     public String toString() {
-        if (isWhite) {
+        if (white) {
             return "WP";
         } else {
             return "SP";

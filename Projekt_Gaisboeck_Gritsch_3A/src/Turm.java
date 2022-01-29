@@ -109,7 +109,7 @@ public class Turm extends Figur {
 
     @Override
     public String toString() {
-        if (isWhite) {
+        if (white) {
             return "WT";
         } else {
             return "ST";

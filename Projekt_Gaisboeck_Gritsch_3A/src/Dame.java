@@ -120,7 +120,7 @@ public class Dame extends Figur {
 
     @Override
     public String toString() {
-        if (isWhite) {
+        if (white) {
             return "WD";
         } else {
             return "SD";

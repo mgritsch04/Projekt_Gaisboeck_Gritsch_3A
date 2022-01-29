@@ -11,7 +11,6 @@
 public class Bauer extends Figur {
 
     boolean white;
-//    Position position;
 
     public Bauer(Position postion, boolean isWhite) {
         super(postion, isWhite);
@@ -75,7 +74,7 @@ public class Bauer extends Figur {
 
     @Override
     public String toString() {
-        if (isWhite) {
+        if (white) {
             return "WB";
         } else {
             return "SB";

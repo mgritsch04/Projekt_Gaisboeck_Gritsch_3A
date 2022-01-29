@@ -73,14 +73,14 @@ public class Spielfeld {
         Bauer bs6 = new Bauer(new Position(6, 5), true);
         Bauer bs7 = new Bauer(new Position(6, 6), true);
         Bauer bs8 = new Bauer(new Position(6, 7), true);
-        bs1.possibleMoves = b1.possibleMoves();
-        bs2.possibleMoves = b1.possibleMoves();
-        b3.possibleMoves = b1.possibleMoves();
-        bs4.possibleMoves = b1.possibleMoves();
-        bs5.possibleMoves = b1.possibleMoves();
-        bs6.possibleMoves = b1.possibleMoves();
-        bs7.possibleMoves = b1.possibleMoves();
-        bs8.possibleMoves = b1.possibleMoves();
+        bs1.possibleMoves = bs1.possibleMoves();
+        bs2.possibleMoves = bs2.possibleMoves();
+        bs3.possibleMoves = bs3.possibleMoves();
+        bs4.possibleMoves = bs4.possibleMoves();
+        bs5.possibleMoves = bs5.possibleMoves();
+        bs6.possibleMoves = bs6.possibleMoves();
+        bs7.possibleMoves = bs7.possibleMoves();
+        bs8.possibleMoves = bs8.possibleMoves();
         spielfeld[6][0] = bs1;
         spielfeld[6][1] = bs2;
         spielfeld[6][2] = bs3;
@@ -115,6 +115,8 @@ public class Spielfeld {
         spielfeld[7][5] = l2;
         spielfeld[7][6] = p2;
         spielfeld[7][7] = t2;
+
+        testFigur(t2);
     }
 
     public void print() {
@@ -123,11 +125,10 @@ public class Spielfeld {
         for (int i = 0; i < spielfeld.length; i++) {
             System.out.print(i + "    |");
             for (int j = 0; j < spielfeld.length; j++) {
-//                System.out.print("   ");
                 if (spielfeld[i][j] == null) {
                     System.out.print("    |");
                 } else {
-                    System.out.print(" " + spielfeld[i][j] + " |");
+                    System.out.print(" " + spielfeld[i][j].toString() + " |");
                 }
 
             }
