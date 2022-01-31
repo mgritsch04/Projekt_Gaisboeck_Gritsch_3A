@@ -63,7 +63,7 @@ public class Spielfeld {
         spielfeld[0][1] = p1;
         spielfeld[0][2] = l1;
         spielfeld[0][3] = d;
-        spielfeld[0][4] = k;
+        spielfeld[3][4] = k;
         spielfeld[0][5] = l2;
         spielfeld[0][6] = p2;
         spielfeld[0][7] = t2;
@@ -100,7 +100,7 @@ public class Spielfeld {
         pw1.possibleMoves = pw1.possibleMoves();
         Laeufer lw1 = new Laeufer(new Position(7, 2), true);
         lw1.possibleMoves = lw1.possibleMoves();
-        Dame dw = new Dame(new Position(7, 3), true);
+        Dame dw = new Dame(new Position(4, 3), true); //test
         dw.possibleMoves = dw.possibleMoves();
         Koenig kw = new Koenig(new Position(7, 4), true);
         kw.possibleMoves = kw.possibleMoves();
@@ -111,10 +111,10 @@ public class Spielfeld {
         Turm tw2 = new Turm(new Position(7, 7), true);
         tw2.possibleMoves = tw2.possibleMoves();
 
-        spielfeld[2][0] = tw1;
+        spielfeld[7][0] = tw1;
         spielfeld[7][1] = pw1;
         spielfeld[7][2] = lw1;
-        spielfeld[7][3] = dw;
+        spielfeld[3][3] = dw;
         spielfeld[7][4] = kw;
         spielfeld[7][5] = lw2;
         spielfeld[7][6] = pw2;
@@ -144,9 +144,10 @@ public class Spielfeld {
         Spielfeld s = new Spielfeld();
         s.print();
 
-        s.moveFigure(2, 0, 2, 2);
+        s.moveFigure(3, 3, 3, 4);
         System.out.println("");
         s.print();
+
     }
 
     public boolean checkPositionForFigure(int reihe, int spalte) {
@@ -165,9 +166,25 @@ public class Spielfeld {
                 successMove = false;
             } else {
                 if (spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
+                    if (spielfeld[reiheNeu][spalteNeu].getClass().equals(Koenig.class)) {
+
+                        spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+                        spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                        spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+                        spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+                        spielfeld[reiheAkt][spalteAkt] = null;
+                        this.print();
+                        System.out.println("Schachmatt");
+
+                        System.exit(1);
+                    }
                     spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
                     spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                    spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+                    spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
                     spielfeld[reiheAkt][spalteAkt] = null;
+                    spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
+
                 } else {
                     successMove = false;
                     System.out.println("Ungütliger Spielzug");
@@ -178,7 +195,10 @@ public class Spielfeld {
             if (spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
                 spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
                 spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+                spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
                 spielfeld[reiheAkt][spalteAkt] = null;
+                spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
             } else {
                 successMove = false;
                 System.out.println("Ungütliger Spielzug");
@@ -224,7 +244,7 @@ public class Spielfeld {
                     spielfeld[reihe][spalte] = new Laeufer(new Position(reihe, spalte), true);
                     break;
                 case "s":
-                    spielfeld[reihe][spalte] = new Springer(new Position(reihe, spalte), true);
+                    spielfeld[reihe][spalte] = new Pferd(new Position(reihe, spalte), true);
                     break;
             }
         } else {
@@ -239,7 +259,7 @@ public class Spielfeld {
                     spielfeld[reihe][spalte] = new Laeufer(new Position(reihe, spalte), false);
                     break;
                 case "s":
-                    spielfeld[reihe][spalte] = new Springer(new Position(reihe, spalte), false);
+                    spielfeld[reihe][spalte] = new Pferd(new Position(reihe, spalte), false);
                     break;
             }
         }
@@ -250,64 +270,170 @@ public class Spielfeld {
         boolean figurebetween = false;
 
         if (spielfeld[reiheAkt][spalteAkt].isWhite) {
-
-            //vorne
             if (spalteAkt == spalteNeu) {
-                for (int i = reiheAkt - 1; i > reiheNeu; i--) {
-                    if (checkPositionForFigure(i, spalteAkt)) {
-                        figurebetween = true;
+                //vorne
+                if (reiheAkt > reiheNeu) {
+                    for (int i = reiheAkt - 1; i > reiheNeu; i--) {
+                        if (checkPositionForFigure(i, spalteAkt)) {
+                            figurebetween = true;
+                        }
+                    }
+                } else {
+                    //hinten
+                    for (int i = reiheAkt + 1; i < reiheNeu; i++) {
+                        if (checkPositionForFigure(i, spalteAkt)) {
+                            figurebetween = true;
+                        }
                     }
                 }
+
             }
 
-            //hinten
-            if (spalteAkt == spalteNeu) {
-                for (int i = reiheAkt + 1; i < reiheNeu; i++) {
-                    if (checkPositionForFigure(i, spalteAkt)) {
-                        figurebetween = true;
-                    }
-                }
-            }
+            if (reiheAkt == reiheNeu) {
+                //links
+                if (spalteAkt > spalteNeu) {
+                    for (int i = spalteAkt - 1; i > spalteNeu; i--) {
+                        if (checkPositionForFigure(reiheAkt, i)) {
+                            figurebetween = true;
+                        }
 
-            //links
-            if (reiheAkt == reiheNeu) {
-                for (int i = spalteAkt - 1; i > spalteNeu; i--) {
-                    if (checkPositionForFigure(reiheAkt, i)) {
-                        figurebetween = true;
+                    }
+                } else {
+                    //rechts wip
+                    for (int i = spalteAkt + 1; i < spalteNeu; i++) {
+                        if (checkPositionForFigure(reiheAkt, i)) {
+                            figurebetween = true;
+                        }
                     }
                 }
-            }
-            //rechts wip
-            if (reiheAkt == reiheNeu) {
-                for (int i = spalteAkt + 1; i < spalteNeu; i++) {
-                    if (checkPositionForFigure(reiheAkt, i)) {
-                        figurebetween = true;
-                    }
-                }
+
             }
 
             //diagonal rechts vorne
-            //diagonal links vorne
-            //diagonal rechts hinten
-            //diagonal links hinten
-            //bauer erster move 2 nach vorne
-        } else {
-
-            //vorne
-            if (spalteAkt == spalteNeu) {
-                for (int i = reiheNeu; i > reiheAkt; i--) {
-                    if (checkPositionForFigure(i, spalteAkt)) {
-                        figurebetween = true;
+            if (reiheAkt > reiheNeu && spalteAkt < spalteNeu) {
+                for (int i = reiheAkt; i <= reiheNeu; i++) {
+                    for (int j = spalteAkt; j <= spalteNeu; j++) {
+                        if (checkPositionForFigure(i, j)) {
+                            figurebetween = true;
+                        }
                     }
                 }
             }
 
-            //hinten
-            //rechts
+            //diagonal links vorne
+            if (reiheAkt > reiheNeu && spalteAkt > spalteNeu) {
+                for (int i = reiheAkt; i <= reiheNeu; i++) {
+                    for (int j = spalteAkt; j >= spalteNeu; j--) {
+                        if (checkPositionForFigure(i, j)) {
+                            figurebetween = true;
+                        }
+                    }
+                }
+            }
+
+            //diagonal rechts hinten
+            if (reiheAkt < reiheNeu && spalteAkt > spalteNeu) {
+                for (int i = reiheAkt; i >= reiheNeu; i--) {
+                    for (int j = spalteAkt; j <= spalteNeu; j++) {
+                        if (checkPositionForFigure(i, j)) {
+                            figurebetween = true;
+                        }
+                    }
+                }
+            }
+
+            //diagonal links hinten
+            if (reiheAkt < reiheNeu && spalteAkt < spalteNeu) {
+                for (int i = reiheAkt; i >= reiheNeu; i--) {
+                    for (int j = spalteAkt; j >= spalteNeu; j--) {
+                        if (checkPositionForFigure(i, j)) {
+                            figurebetween = true;
+                        }
+                    }
+                }
+            }
+
+        } else {
+
+            if (spalteAkt == spalteNeu) {
+                //vorne
+                if (reiheAkt < reiheNeu) {
+                    for (int i = reiheAkt + 1; i < reiheNeu; i++) {
+                        if (checkPositionForFigure(i, spalteAkt)) {
+                            figurebetween = true;
+                        }
+                    }
+                } else {
+                    //hinten
+                    for (int i = reiheAkt - 1; i > reiheNeu; i--) {
+                        if (checkPositionForFigure(i, spalteAkt)) {
+                            figurebetween = true;
+                        }
+                    }
+                }
+
+            }
+
             if (reiheAkt == reiheNeu) {
-                for (int i = spalteNeu; i < spalteAkt; i++) {
-                    if (checkPositionForFigure(reiheAkt, i)) {
-                        figurebetween = true;
+                //links
+                if (spalteAkt < spalteNeu) {
+                    for (int i = spalteAkt + 1; i < spalteNeu; i++) {
+                        if (checkPositionForFigure(reiheAkt, i)) {
+                            figurebetween = true;
+                        }
+
+                    }
+                } else {
+                    //rechts wip
+                    for (int i = spalteAkt - 1; i > spalteNeu; i--) {
+                        if (checkPositionForFigure(reiheAkt, i)) {
+                            figurebetween = true;
+                        }
+                    }
+                }
+
+            }
+
+            //diagonal rechts vorne
+            if (reiheAkt < reiheNeu && spalteAkt < spalteNeu) {
+                for (int i = reiheAkt; i >= reiheNeu; i--) {
+                    for (int j = spalteAkt; j <= spalteNeu; j++) {
+                        if (checkPositionForFigure(i, j)) {
+                            figurebetween = true;
+                        }
+                    }
+                }
+            }
+
+            //diagonal links vorne
+            if (reiheAkt < reiheNeu && spalteAkt > spalteNeu) {
+                for (int i = reiheAkt; i >= reiheNeu; i--) {
+                    for (int j = spalteAkt; j >= spalteNeu; j--) {
+                        if (checkPositionForFigure(i, j)) {
+                            figurebetween = true;
+                        }
+                    }
+                }
+            }
+
+            //diagonal rechts hinten
+            if (reiheAkt > reiheNeu && spalteAkt > spalteNeu) {
+                for (int i = reiheAkt; i <= reiheNeu; i++) {
+                    for (int j = spalteAkt; j <= spalteNeu; j++) {
+                        if (checkPositionForFigure(i, j)) {
+                            figurebetween = true;
+                        }
+                    }
+                }
+            }
+
+            //diagonal links hinten
+            if (reiheAkt > reiheNeu && spalteAkt < spalteNeu) {
+                for (int i = reiheAkt; i <= reiheNeu; i++) {
+                    for (int j = spalteAkt; j >= spalteNeu; j--) {
+                        if (checkPositionForFigure(i, j)) {
+                            figurebetween = true;
+                        }
                     }
                 }
             }
@@ -317,7 +443,4 @@ public class Spielfeld {
         return figurebetween;
     }
 
-    public boolean checkSchachmatt() {
-
-    }
 }

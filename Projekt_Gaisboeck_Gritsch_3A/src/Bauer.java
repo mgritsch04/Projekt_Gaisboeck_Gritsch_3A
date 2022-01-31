@@ -11,14 +11,14 @@
 public class Bauer extends Figur {
 
     boolean white;
-    boolean isFirstMove;
+//    boolean isFirstMove;
 
     public Bauer(Position postion, boolean isWhite) {
         super(postion, isWhite);
         white = isWhite;
         possibleMoves();
         position = postion;
-        isFirstMove = true;
+//        isFirstMove = true;
     }
 
     @Override

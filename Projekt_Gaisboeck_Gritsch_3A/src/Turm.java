@@ -75,15 +75,9 @@ public class Turm extends Figur {
                 possibleMoves[position.Reihe - i][position.Spalte] = true;
             }
 
-            //nach hintenss
+            //nach hintens
             for (int i = 0; i <= felderNachHinten; i++) {
-                possibleMoves[position.Reihe - i][position.Spalte] = true;
-
-            }
-
-            //nach hintenss
-            for (int i = 0; i < felderNachHinten; i++) {
-                possibleMoves[position.Spalte][position.Reihe - i] = true;
+                possibleMoves[position.Reihe + i][position.Spalte] = true;
 
             }
 
@@ -96,11 +90,6 @@ public class Turm extends Figur {
             for (int i = 0; i <= felderNachRechts; i++) {
                 possibleMoves[position.Reihe][position.Spalte + i] = true;
 
-            }
-
-            //nach rechts
-            for (int i = 0; i < felderNachRechts; i++) {
-                possibleMoves[position.Spalte + i][position.Reihe] = true;
             }
         }
 
