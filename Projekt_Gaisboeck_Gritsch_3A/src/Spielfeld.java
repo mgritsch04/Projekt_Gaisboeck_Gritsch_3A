@@ -1,4 +1,5 @@
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ import java.util.Scanner;
  *
  * @author maxim
  */
-public class Spielfeld {
+public class Spielfeld implements Serializable {
 
     Figur[][] spielfeld = new Figur[8][8];
 
@@ -199,12 +200,20 @@ public class Spielfeld {
             }
         } else {
             if (spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
-                if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class)
-                        && spielfeld[reiheAkt][spalteAkt].isFirstMove
-                        && spielfeld[7][4].getClass().equals(Koenig.class)
-                        && spielfeld[7][4].isFirstMove) {
-
-                }
+//                if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class)
+//                        && spielfeld[reiheAkt][spalteAkt].isFirstMove
+//                        && spielfeld[7][4].getClass().equals(Koenig.class)
+//                        && spielfeld[7][4].isFirstMove) {
+//                    spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+//                    spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+//                    spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+//                    spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+//                    spielfeld[reiheAkt][spalteAkt] = null;
+//                    spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
+//                    spielfeld[7][2] = spielfeld[7][4];
+//
+//
+//                }
 
                 spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
                 spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
