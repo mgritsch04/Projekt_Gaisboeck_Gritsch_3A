@@ -240,28 +240,30 @@ public class Spielfeld {
                         }
                     }
                     //schwarz
-                } else if (!spielfeld[reiheAkt][spalteAkt].isWhite && spielfeld[7][4].getClass().equals(Koenig.class)
-                        && spielfeld[7][4].isFirstMove) {
-
+                } else {
+                    spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+                    spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                    spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+                    spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+                    spielfeld[reiheAkt][spalteAkt] = null;
+                    spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
                 }
+
+//             else if (!spielfeld[reiheAkt][spalteAkt].isWhite && spielfeld[7][4].getClass().equals(Koenig.class)
+//                    && spielfeld[7][4].isFirstMove) {
+//
+//            }
             }
 
-            spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
-            spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
-            spielfeld[reiheNeu][spalteNeu].felderBerechnen();
-            spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
-            spielfeld[reiheAkt][spalteAkt] = null;
-            spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
-            spielfeld[7][2] = spielfeld[7][4];
+//            spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+//            spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+//            spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+//            spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+//            spielfeld[reiheAkt][spalteAkt] = null;
+//            spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
+//            spielfeld[7][2] = spielfeld[7][4];
 //
 //
-
-            spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
-            spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
-            spielfeld[reiheNeu][spalteNeu].felderBerechnen();
-            spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
-            spielfeld[reiheAkt][spalteAkt] = null;
-            spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
         }
         else {
                 successMove = "false";
