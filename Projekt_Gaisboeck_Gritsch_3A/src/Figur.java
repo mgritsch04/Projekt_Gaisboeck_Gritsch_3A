@@ -1,15 +1,6 @@
 
 import java.io.Serializable;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author maxim
- */
 public abstract class Figur implements Serializable {
 
     Boolean isWhite;
@@ -38,5 +29,4 @@ public abstract class Figur implements Serializable {
     public abstract boolean[][] possibleMoves();
 
     public abstract String toString();
-
 }

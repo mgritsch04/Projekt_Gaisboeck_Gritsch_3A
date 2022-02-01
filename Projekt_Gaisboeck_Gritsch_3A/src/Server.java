@@ -1,9 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-import Kommunikation.*;
 
 import java.io.InputStream;
 import java.io.ObjectInput;
@@ -15,10 +9,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 
-/**
- *
- * @author Fabian
- */
 public class Server {
 
     public static void main(String[] args) {

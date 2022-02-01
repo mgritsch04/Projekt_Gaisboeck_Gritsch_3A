@@ -3,15 +3,6 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Scanner;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author maxim
- */
 public class Spielfeld implements Serializable {
 
     Figur[][] spielfeld = new Figur[8][8];
@@ -481,5 +472,4 @@ public class Spielfeld implements Serializable {
 
         return figurebetween;
     }
-
 }
