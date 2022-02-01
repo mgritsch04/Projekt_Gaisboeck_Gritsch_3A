@@ -88,7 +88,9 @@ public class Spielfeld {
         bw6.possibleMoves = bw6.possibleMoves();
         bw7.possibleMoves = bw7.possibleMoves();
         bw8.possibleMoves = bw8.possibleMoves();
-        spielfeld[6][0] = bw1;
+        spielfeld[4][3] = bw1; //test
+        spielfeld[4][3].position = new Position(4, 3);
+        spielfeld[4][3].possibleMoves = spielfeld[4][3].possibleMoves();
         spielfeld[6][1] = bw2;
         spielfeld[6][2] = bw3;
 //        spielfeld[6][3] = bw4; //test
@@ -147,11 +149,12 @@ public class Spielfeld {
         Spielfeld s = new Spielfeld();
         s.print();
 
-        s.moveFigure(6, 3, 7, 3);
-        s.print();
-        System.out.println("");
-        s.moveFigure(3, 3, 3, 4);
-        System.out.println("");
+//        s.moveFigure(6, 3, 7, 3);
+//        s.print();
+//        System.out.println("");
+//        s.moveFigure(3, 3, 3, 4);
+//        System.out.println("");
+//        s.moveFigure(4, 3, 3, 4);
         s.print();
 
     }
@@ -166,6 +169,34 @@ public class Spielfeld {
 
     public boolean moveFigure(int reiheAkt, int spalteAkt, int reiheNeu, int spalteNeu) {
         boolean successMove = true;
+
+        if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Bauer.class)) {
+            if (spielfeld[reiheAkt][spalteAkt].isWhite) {
+                //weiß
+                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt - 1)) {
+                    spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt - 1] = false;
+                    System.out.println("baer");
+                }
+                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt + 1)) {
+                    spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt + 1] = false;
+                }
+                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt + 1] = false;
+                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt - 1] = false;
+            } else {
+                //schwarz
+                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt - 1)) {
+                    spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt - 1] = false;
+                    System.out.println("baer");
+                }
+                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt + 1)) {
+                    spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt + 1] = false;
+                }
+                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt + 1] = false;
+                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt - 1] = false;
+            }
+
+        }
+
         if (checkPositionForFigure(reiheNeu, spalteNeu)) {
             if (Objects.equals(spielfeld[reiheAkt][spalteAkt].isWhite, spielfeld[reiheNeu][spalteNeu].isWhite)) {
                 System.out.println("Feld besetzt.");
