@@ -1,22 +1,8 @@
-<<<<<<< HEAD
-=======
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
->>>>>>> bcca96b9374dc7269af60b995f1fc86bf1c61641
-
-import java.io.InputStream;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Date;
-import java.util.Scanner;
-
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
