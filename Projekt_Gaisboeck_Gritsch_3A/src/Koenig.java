@@ -30,84 +30,85 @@ public class Koenig extends Figur {
 
         if (!white) {
             //1 nach vorne
-            if (felderNachHinten > 0) {
-                possibleMoves[position.Spalte][position.Reihe + 1] = true;
+
+            if (felderNachHinten >= 0) {
+                possibleMoves[position.Reihe + 1][position.Spalte] = true;
             }
 
             //1 nach hinten
-            if (felderNachVorne > 0) {
-                possibleMoves[position.Spalte][position.Reihe - 1] = true;
+            if (felderNachVorne >= 0) {
+                possibleMoves[position.Reihe - 1][position.Spalte] = true;
             }
 
             //1 nach rechts
-            if (felderNachRechts > 0) {
-                possibleMoves[position.Spalte + 1][position.Reihe] = true;
+            if (felderNachRechts >= 0) {
+                possibleMoves[position.Reihe][position.Spalte + 1] = true;
             }
 
             //1 nach links
-            if (felderNachLinks > 0) {
-                possibleMoves[position.Spalte - 1][position.Reihe] = true;
+            if (felderNachLinks >= 0) {
+                possibleMoves[position.Reihe][position.Spalte - 1] = true;
             }
 
             //1 diagonal rechts
-            if (felderNachHinten > 0 && felderNachRechts > 0) {
-                possibleMoves[position.Spalte + 1][position.Reihe + 1] = true;
+            if (felderNachHinten >= 0 && felderNachRechts >= 0) {
+                possibleMoves[position.Reihe + 1][position.Spalte + 1] = true;
             }
 
             //1 diagonal links
-            if (felderNachHinten > 0 && felderNachLinks > 0) {
-                possibleMoves[position.Spalte - 1][position.Reihe + 1] = true;
+            if (felderNachHinten >= 0 && felderNachLinks >= 0) {
+                possibleMoves[position.Reihe + 1][position.Spalte - 1] = true;
             }
 
             //diagonal rechts hinten
-            if (felderNachVorne > 0 && felderNachRechts > 0) {
-                possibleMoves[position.Spalte + 1][position.Reihe - 1] = true;
+            if (felderNachVorne >= 0 && felderNachRechts >= 0) {
+                possibleMoves[position.Reihe - 1][position.Spalte + 1] = true;
             }
 
             //diagonal links hinten
-            if (felderNachVorne > 0 && felderNachLinks > 0) {
-                possibleMoves[position.Spalte - 1][position.Reihe - 1] = true;
+            if (felderNachVorne >= 0 && felderNachLinks >= 0) {
+                possibleMoves[position.Reihe - 1][position.Spalte - 1] = true;
             }
-        }
+        } else {
+            //1 nach vorne
+            if (felderNachVorne >= 0) {
+                possibleMoves[position.Reihe - 1][position.Spalte] = true;
+            }
 
-        //1 nach vorne
-        if (felderNachVorne > 0) {
-            possibleMoves[position.Spalte][position.Reihe + 1] = true;
-        }
+            //1 nach hinten
+            if (felderNachHinten >= 0) {
+                possibleMoves[position.Reihe - 1][position.Spalte] = true;
+            }
 
-        //1 nach hinten
-        if (felderNachHinten > 0) {
-            possibleMoves[position.Spalte][position.Reihe - 1] = true;
-        }
+            //1 nach rechts
+            if (felderNachRechts >= 0) {
+                possibleMoves[position.Reihe][position.Spalte + 1] = true;
+            }
 
-        //1 nach rechts
-        if (felderNachRechts > 0) {
-            possibleMoves[position.Spalte + 1][position.Reihe] = true;
-        }
+            //1 nach links
+            if (felderNachLinks >= 0) {
+                possibleMoves[position.Reihe][position.Spalte - 1] = true;
+            }
 
-        //1 nach links
-        if (felderNachLinks > 0) {
-            possibleMoves[position.Spalte - 1][position.Reihe] = true;
-        }
+            //1 diagonal rechts
+            if (felderNachVorne >= 0 && felderNachRechts >= 0) {
+                possibleMoves[position.Reihe - 1][position.Spalte + 1] = true;
+            }
 
-        //1 diagonal rechts
-        if (felderNachVorne > 0 && felderNachRechts > 0) {
-            possibleMoves[position.Spalte + 1][position.Reihe + 1] = true;
-        }
+            //1 diagonal links
+            if (felderNachVorne >= 0 && felderNachLinks >= 0) {
+                possibleMoves[position.Reihe - 1][position.Spalte - 1] = true;
+            }
 
-        //1 diagonal links
-        if (felderNachVorne > 0 && felderNachLinks > 0) {
-            possibleMoves[position.Spalte - 1][position.Reihe + 1] = true;
-        }
+            //diagonal rechts hinten
+            if (felderNachHinten >= 0 && felderNachRechts >= 0) {
+                possibleMoves[position.Reihe - 1][position.Spalte + 1] = true;
+            }
 
-        //diagonal rechts hinten
-        if (felderNachHinten > 0 && felderNachRechts > 0) {
-            possibleMoves[position.Spalte + 1][position.Reihe - 1] = true;
-        }
-
-        //diagonal links hinten
-        if (felderNachHinten > 0 && felderNachLinks > 0) {
-            possibleMoves[position.Spalte - 1][position.Reihe - 1] = true;
+            //diagonal links hinten
+            if (felderNachHinten >= 0 && felderNachLinks >= 0) {
+                possibleMoves[position.Reihe - 1][position.Spalte - 1] = true;
+            }
         }
 
         return possibleMoves;
@@ -116,9 +117,9 @@ public class Koenig extends Figur {
     @Override
     public String toString() {
         if (isWhite) {
-            return "WK";
+            return "\u2654";
         } else {
-            return "SK";
+            return "\u265A";
         }
     }
 

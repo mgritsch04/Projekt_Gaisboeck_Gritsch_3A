@@ -29,45 +29,46 @@ public class Laeufer extends Figur {
         }
 
         if (!white) {
-            //diagonal links
-            for (int i = 0; i < felderNachHinten && i < felderNachLinks; i++) {
-                possibleMoves[position.Spalte - 1][position.Reihe + 1] = true;
-            }
 
             //diagonal rechts
-            for (int i = 0; i < felderNachHinten && i < felderNachRechts; i++) {
-                possibleMoves[position.Spalte + 1][position.Reihe + 1] = true;
+            for (int i = 0; i <= felderNachHinten && i <= felderNachRechts; i++) {
+                possibleMoves[position.Reihe + i][position.Spalte + i] = true;
+            }
+            //diagonal links
+            for (int i = 0; i <= felderNachHinten && i <= felderNachLinks; i++) {
+                possibleMoves[position.Reihe + i][position.Spalte - i] = true;
             }
 
             //digonal links hinten
-            for (int i = 0; i < felderNachVorne && i < felderNachLinks; i++) {
-                possibleMoves[position.Spalte - 1][position.Reihe - 1] = true;
+            for (int i = 0; i <= felderNachVorne && i <= felderNachLinks; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte - i] = true;
             }
 
             //diagonal rechts hinten
-            for (int i = 0; i < felderNachVorne && i < felderNachRechts; i++) {
-                possibleMoves[position.Spalte + 1][position.Reihe - 1] = true;
+            for (int i = 0; i <= felderNachVorne && i <= felderNachRechts; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte + i] = true;
             }
         } else {
             //diagonal links
-            for (int i = 0; i < felderNachVorne && i < felderNachLinks; i++) {
-                possibleMoves[position.Spalte - 1][position.Reihe + 1] = true;
+            for (int i = 0; i <= felderNachVorne && i <= felderNachLinks; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte - i] = true;
             }
 
             //diagonal rechts
-            for (int i = 0; i < felderNachVorne && i < felderNachRechts; i++) {
-                possibleMoves[position.Spalte + 1][position.Reihe + 1] = true;
+            for (int i = 0; i <= felderNachVorne && i <= felderNachRechts; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte + i] = true;
             }
 
             //digonal links hinten
-            for (int i = 0; i < felderNachHinten && i < felderNachLinks; i++) {
-                possibleMoves[position.Spalte - 1][position.Reihe - 1] = true;
+            for (int i = 0; i <= felderNachHinten && i <= felderNachLinks; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte - i] = true;
             }
 
             //diagonal rechts hinten
-            for (int i = 0; i < felderNachHinten && i < felderNachLinks; i++) {
-                possibleMoves[position.Spalte + 1][position.Reihe - 1] = true;
+            for (int i = 0; i <= felderNachHinten && i <= felderNachLinks; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte + i] = true;
             }
+
         }
 
         return possibleMoves;
@@ -76,9 +77,9 @@ public class Laeufer extends Figur {
     @Override
     public String toString() {
         if (isWhite) {
-            return "WL";
+            return "\u2657";
         } else {
-            return "SL";
+            return "\u265d";
         }
     }
 

@@ -11,13 +11,14 @@
 public class Bauer extends Figur {
 
     boolean white;
-//    Position position;
+    boolean isFirstMove;
 
     public Bauer(Position postion, boolean isWhite) {
         super(postion, isWhite);
         white = isWhite;
         possibleMoves();
         position = postion;
+        isFirstMove = true;
     }
 
     @Override
@@ -36,7 +37,7 @@ public class Bauer extends Figur {
                 possibleMoves[position.Reihe + 1][position.Spalte] = true;
             }
             //2 nach vorne
-            if (felderNachHinten > 1) {
+            if (felderNachHinten > 1 && isFirstMove) {
                 possibleMoves[position.Reihe + 2][position.Spalte] = true;
             }
 
@@ -56,7 +57,7 @@ public class Bauer extends Figur {
             }
 
             //2 nach vorne
-            if (felderNachVorne > 1) {
+            if (felderNachVorne > 1 && isFirstMove) {
                 possibleMoves[position.Reihe - 2][position.Spalte] = true;
             }
 
@@ -66,7 +67,7 @@ public class Bauer extends Figur {
             }
             //1 nach vorne rechts
             if (felderNachRechts > 0 && felderNachVorne > 0) {
-                possibleMoves[position.Reihe + 1][position.Spalte + 1] = true;
+                possibleMoves[position.Reihe - 1][position.Spalte + 1] = true;
             }
         }
 
@@ -76,9 +77,9 @@ public class Bauer extends Figur {
     @Override
     public String toString() {
         if (isWhite) {
-            return "WB";
+            return "\u2659";
         } else {
-            return "SB";
+            return "\u265f";
         }
     }
 }

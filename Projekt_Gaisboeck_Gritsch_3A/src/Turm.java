@@ -30,6 +30,15 @@ public class Turm extends Figur {
 
         if (!white) {
             //nach vorne
+
+            for (int i = 0; i <= felderNachHinten; i++) {
+                possibleMoves[position.Reihe + i][position.Spalte] = true;
+            }
+
+            //nach hintenss
+            for (int i = 0; i <= felderNachVorne; i++) {
+                possibleMoves[position.Reihe + i][position.Spalte] = true;
+            }
             for (int i = 0; i < felderNachHinten; i++) {
                 possibleMoves[position.Spalte][position.Reihe + i] = true;
             }
@@ -41,6 +50,14 @@ public class Turm extends Figur {
             }
 
             //nach links
+            for (int i = 0; i <= felderNachLinks; i++) {
+                possibleMoves[position.Reihe][position.Spalte - i] = true;
+            }
+
+            //nach rechts
+            for (int i = 0; i <= felderNachRechts; i++) {
+                possibleMoves[position.Reihe][position.Reihe + i] = true;
+            }
             for (int i = 0; i < felderNachLinks; i++) {
                 possibleMoves[position.Spalte - 1][position.Reihe] = true;
             }
@@ -48,11 +65,20 @@ public class Turm extends Figur {
             //nach rechts
             for (int i = 0; i < felderNachRechts; i++) {
                 possibleMoves[position.Spalte + i][position.Reihe] = true;
+
             }
         } else {
             //nach vorne
-            for (int i = 0; i < felderNachVorne; i++) {
-                possibleMoves[position.Spalte][position.Reihe + i] = true;
+
+            for (int i = 0; i <= felderNachVorne + 1; i++) {
+
+                possibleMoves[position.Reihe - i][position.Spalte] = true;
+            }
+
+            //nach hintenss
+            for (int i = 0; i <= felderNachHinten; i++) {
+                possibleMoves[position.Reihe - i][position.Spalte] = true;
+
             }
 
             //nach hintenss
@@ -62,8 +88,14 @@ public class Turm extends Figur {
             }
 
             //nach links
-            for (int i = 0; i < felderNachLinks; i++) {
-                possibleMoves[position.Spalte - 1][position.Reihe] = true;
+            for (int i = 0; i < felderNachLinks + 1; i++) {
+                possibleMoves[position.Reihe][position.Spalte - i] = true;
+            }
+
+            //nach rechts
+            for (int i = 0; i <= felderNachRechts; i++) {
+                possibleMoves[position.Reihe][position.Spalte + i] = true;
+
             }
 
             //nach rechts
@@ -78,9 +110,9 @@ public class Turm extends Figur {
     @Override
     public String toString() {
         if (isWhite) {
-            return "WT";
+            return "\u2656";
         } else {
-            return "ST";
+            return "\u265c";
         }
     }
 
