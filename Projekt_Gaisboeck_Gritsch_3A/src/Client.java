@@ -1,5 +1,9 @@
-package Kommunikation;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 
+import Kommunikation.*;
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
@@ -8,6 +12,10 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+/**
+ *
+ * @author Fabian
+ */
 public class Client {
 
     public static void main(String[] args) {
@@ -17,18 +25,16 @@ public class Client {
             OutputStream os = soc.getOutputStream();
             ObjectOutput obj = new ObjectOutputStream(os);
 
-            String feld[] = {"1", "2", "3"};
-            SpielfeldTest emp = new SpielfeldTest(feld);
-            obj.writeObject(emp);
+            Spielfeld spielfeldClient = new Spielfeld();
+            obj.writeObject(spielfeldClient);
 
             InputStream is = soc.getInputStream();
             ObjectInput oi = new ObjectInputStream(is);
-            SpielfeldTest emp2 = (SpielfeldTest) oi.readObject();
+            Spielfeld emp2 = (Spielfeld) oi.readObject();
 
             obj.flush();
             obj.close();
 
-            System.out.println(emp2.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Error during serialization");

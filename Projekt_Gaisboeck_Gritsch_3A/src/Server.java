@@ -1,4 +1,9 @@
-package Kommunikation;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+import Kommunikation.*;
 
 import java.io.InputStream;
 import java.io.ObjectInput;
@@ -10,6 +15,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 
+/**
+ *
+ * @author Fabian
+ */
 public class Server {
 
     public static void main(String[] args) {
@@ -23,13 +32,13 @@ public class Server {
             soc = server.accept();
             InputStream is = soc.getInputStream();
             ObjectInput oi = new ObjectInputStream(is);
-            SpielfeldTest emp = (SpielfeldTest) oi.readObject();
+            Spielfeld emp = (Spielfeld) oi.readObject();
 
             OutputStream os = soc.getOutputStream();
             ObjectOutput obj = new ObjectOutputStream(os);
 
             String feld[] = {"3", "2", "1"};
-            SpielfeldTest emp2 = new SpielfeldTest(feld);
+            Spielfeld emp2 = new Spielfeld();
             obj.writeObject(emp2);
             obj.flush();
             obj.close();
