@@ -1,4 +1,5 @@
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ import java.util.Scanner;
  *
  * @author maxim
  */
-public class Spielfeld {
+public class Spielfeld implements Serializable {
 
     Figur[][] spielfeld = new Figur[8][8];
 

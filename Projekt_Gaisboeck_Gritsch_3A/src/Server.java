@@ -37,13 +37,12 @@ public class Server {
             OutputStream os = soc.getOutputStream();
             ObjectOutput obj = new ObjectOutputStream(os);
 
-            String feld[] = {"3", "2", "1"};
             Spielfeld emp2 = new Spielfeld();
             obj.writeObject(emp2);
             obj.flush();
             obj.close();
 
-            System.out.println(emp.toString());
+            emp.print();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Eroor during serialization");

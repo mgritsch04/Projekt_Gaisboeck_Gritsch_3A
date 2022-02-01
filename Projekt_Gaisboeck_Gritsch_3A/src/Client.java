@@ -34,7 +34,7 @@ public class Client {
 
             obj.flush();
             obj.close();
-
+            emp2.print();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Error during serialization");
