@@ -149,12 +149,11 @@ public class Spielfeld {
         Spielfeld s = new Spielfeld();
         s.print();
 
-//        s.moveFigure(6, 3, 7, 3);
+        s.moveFigure(4, 3, 3, 4);
 //        s.print();
 //        System.out.println("");
 //        s.moveFigure(3, 3, 3, 4);
 //        System.out.println("");
-        s.moveFigure(4, 3, 3, 2);
         s.print();
 
     }
@@ -195,6 +194,7 @@ public class Spielfeld {
 
         }
 
+        OUTER:
         if (checkPositionForFigure(reiheNeu, spalteNeu)) {
             if (Objects.equals(spielfeld[reiheAkt][spalteAkt].isWhite, spielfeld[reiheNeu][spalteNeu].isWhite)) {
                 System.out.println("Feld besetzt.");
@@ -208,10 +208,11 @@ public class Spielfeld {
                         spielfeld[reiheNeu][spalteNeu].felderBerechnen();
                         spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
                         spielfeld[reiheAkt][spalteAkt] = null;
-                        this.print();
-                        System.out.println("Schachmatt");
+//                        this.print();
+//                        System.out.println("Schachmatt");
 
                         successMove = "Schachmatt";
+                        break OUTER;
                     }
                     spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
                     spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
@@ -232,8 +233,24 @@ public class Spielfeld {
                         && spielfeld[reiheAkt][spalteAkt].isFirstMove
                         && spielfeld[7][4].getClass().equals(Koenig.class)
                         && spielfeld[7][4].isFirstMove) {
+//                    if (reiheAkt == 7 && spalteAkt 0)
 
+                    spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+                    spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                    spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+                    spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+                    spielfeld[reiheAkt][spalteAkt] = null;
+                    spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
+                    spielfeld[7][2] = spielfeld[7][4];
+//
+//
                 }
+//                if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class)
+//                        && spielfeld[reiheAkt][spalteAkt].isFirstMove
+//                        && spielfeld[7][4].getClass().equals(Koenig.class)
+//                        && spielfeld[7][4].isFirstMove) {
+//
+//                }
 
                 spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
                 spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);

@@ -61,12 +61,12 @@ public class Laeufer extends Figur {
 
             //digonal links hinten
             for (int i = 0; i <= felderNachHinten && i <= felderNachLinks; i++) {
-                possibleMoves[position.Reihe - i][position.Spalte - i] = true;
+                possibleMoves[position.Reihe + i][position.Spalte - i] = true;
             }
 
             //diagonal rechts hinten
             for (int i = 0; i <= felderNachHinten && i <= felderNachLinks; i++) {
-                possibleMoves[position.Reihe - i][position.Spalte + i] = true;
+                possibleMoves[position.Reihe + i][position.Spalte + i] = true;
             }
 
         }
