@@ -37,7 +37,7 @@ public class Bauer extends Figur {
                 possibleMoves[position.Reihe + 1][position.Spalte] = true;
             }
             //2 nach vorne
-            if (felderNachHinten > 1 && isFirstMove) {
+            if (felderNachHinten >= 2 && isFirstMove) {
                 possibleMoves[position.Reihe + 2][position.Spalte] = true;
             }
 

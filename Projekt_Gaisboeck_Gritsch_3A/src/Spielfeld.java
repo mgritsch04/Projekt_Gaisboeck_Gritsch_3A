@@ -36,7 +36,10 @@ public class Spielfeld {
         spielfeld[1][0] = b1;
         spielfeld[1][1] = b2;
         spielfeld[1][2] = b3;
-        spielfeld[1][3] = b4;
+        b4.position = new Position(6, 3);
+        b4.isFirstMove = false;
+        b4.possibleMoves = b4.possibleMoves();
+        spielfeld[6][3] = b4; //test
         spielfeld[1][4] = b5;
         spielfeld[1][5] = b6;
         spielfeld[1][6] = b7;
@@ -63,7 +66,7 @@ public class Spielfeld {
         spielfeld[0][1] = p1;
         spielfeld[0][2] = l1;
         spielfeld[0][3] = d;
-        spielfeld[3][4] = k;
+        spielfeld[3][4] = k; //test
         spielfeld[0][5] = l2;
         spielfeld[0][6] = p2;
         spielfeld[0][7] = t2;
@@ -88,7 +91,7 @@ public class Spielfeld {
         spielfeld[6][0] = bw1;
         spielfeld[6][1] = bw2;
         spielfeld[6][2] = bw3;
-        spielfeld[6][3] = bw4;
+//        spielfeld[6][3] = bw4; //test
         spielfeld[6][4] = bw5;
         spielfeld[6][5] = bw6;
         spielfeld[6][6] = bw7;
@@ -114,7 +117,7 @@ public class Spielfeld {
         spielfeld[7][0] = tw1;
         spielfeld[7][1] = pw1;
         spielfeld[7][2] = lw1;
-        spielfeld[3][3] = dw;
+        spielfeld[3][3] = dw; //test
         spielfeld[7][4] = kw;
         spielfeld[7][5] = lw2;
         spielfeld[7][6] = pw2;
@@ -144,6 +147,9 @@ public class Spielfeld {
         Spielfeld s = new Spielfeld();
         s.print();
 
+        s.moveFigure(6, 3, 7, 3);
+        s.print();
+        System.out.println("");
         s.moveFigure(3, 3, 3, 4);
         System.out.println("");
         s.print();
@@ -193,6 +199,13 @@ public class Spielfeld {
             }
         } else {
             if (spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
+                if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class)
+                        && spielfeld[reiheAkt][spalteAkt].isFirstMove
+                        && spielfeld[7][4].getClass().equals(Koenig.class)
+                        && spielfeld[7][4].isFirstMove) {
+
+                }
+
                 spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
                 spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
                 spielfeld[reiheNeu][spalteNeu].felderBerechnen();
@@ -211,18 +224,43 @@ public class Spielfeld {
                     Scanner sc = new Scanner(System.in);
                     System.out.println("Bauer durch Dame (d), Turm (t), Läufer (l), oder Springer (s) tauschen?");
                     String newFigure = sc.nextLine();
-                    while (!newFigure.equals('d') && !newFigure.equals('t') && !newFigure.equals('l') && !newFigure.equals('s')) {
+
+                    OUTER:
+                    while (true) {
                         newFigure = sc.nextLine();
+                        switch (newFigure) {
+                            case "d":
+                            case "t":
+                            case "l":
+                            case "s":
+
+                                break OUTER;
+                            default:
+                                break;
+                        }
                     }
+
                     upgradeFigure(reiheNeu, spalteNeu, newFigure);
                 }
             } else {
                 if (spielfeld[reiheNeu][spalteNeu].getClass().equals(Bauer.class) && reiheNeu == 7) {
                     Scanner sc = new Scanner(System.in);
                     System.out.println("Bauer durch Dame (d), Turm (t), Läufer (l), oder Springer (s) tauschen?");
-                    String newFigure = sc.nextLine();
-                    while (!newFigure.equals('d') && !newFigure.equals('t') && !newFigure.equals('l') && !newFigure.equals('s')) {
+                    String newFigure = "";
+
+                    OUTER:
+                    while (true) {
                         newFigure = sc.nextLine();
+                        switch (newFigure) {
+                            case "d":
+                            case "t":
+                            case "l":
+                            case "s":
+
+                                break OUTER;
+                            default:
+                                break;
+                        }
                     }
                     upgradeFigure(reiheNeu, spalteNeu, newFigure);
                 }
