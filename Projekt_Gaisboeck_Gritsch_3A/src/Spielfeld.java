@@ -230,41 +230,46 @@ public class Spielfeld {
         } else {
             if (spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
                 if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class)
-                        && spielfeld[reiheAkt][spalteAkt].isFirstMove
-                        && spielfeld[7][4].getClass().equals(Koenig.class)
+                        && spielfeld[reiheAkt][spalteAkt].isFirstMove) {
+                    //weiß
+                    if (spielfeld[reiheAkt][spalteAkt].isWhite && spielfeld[7][4].getClass().equals(Koenig.class)
+                            && spielfeld[7][4].isFirstMove) {
+                        //linker turm
+                        if (reiheAkt == 7 && spalteAkt == 0) {
+
+                        }
+                    }
+                    //schwarz
+                } else if (!spielfeld[reiheAkt][spalteAkt].isWhite && spielfeld[7][4].getClass().equals(Koenig.class)
                         && spielfeld[7][4].isFirstMove) {
-//                    if (reiheAkt == 7 && spalteAkt 0)
 
-                    spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
-                    spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
-                    spielfeld[reiheNeu][spalteNeu].felderBerechnen();
-                    spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
-                    spielfeld[reiheAkt][spalteAkt] = null;
-                    spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
-                    spielfeld[7][2] = spielfeld[7][4];
-//
-//
                 }
-//                if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class)
-//                        && spielfeld[reiheAkt][spalteAkt].isFirstMove
-//                        && spielfeld[7][4].getClass().equals(Koenig.class)
-//                        && spielfeld[7][4].isFirstMove) {
-//
-//                }
-
-                spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
-                spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
-                spielfeld[reiheNeu][spalteNeu].felderBerechnen();
-                spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
-                spielfeld[reiheAkt][spalteAkt] = null;
-                spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
-            } else {
-                successMove = "false";
-                System.out.println("Ungütliger Spielzug");
             }
-        }
 
-        if (successMove.equals("true")) {
+            spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+            spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+            spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+            spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+            spielfeld[reiheAkt][spalteAkt] = null;
+            spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
+            spielfeld[7][2] = spielfeld[7][4];
+//
+//
+
+            spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+            spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+            spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+            spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+            spielfeld[reiheAkt][spalteAkt] = null;
+            spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
+        }
+        else {
+                successMove = "false";
+        System.out.println("Ungütliger Spielzug");
+    }
+
+        if (successMove.equals(
+                "true")) {
             if (spielfeld[reiheNeu][spalteNeu].isWhite) {
                 if (spielfeld[reiheNeu][spalteNeu].getClass().equals(Bauer.class) && reiheNeu == 0) {
                     Scanner sc = new Scanner(System.in);
