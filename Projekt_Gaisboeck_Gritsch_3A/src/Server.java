@@ -1,11 +1,8 @@
-<<<<<<< HEAD
-=======
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
->>>>>>> bcca96b9374dc7269af60b995f1fc86bf1c61641
-
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
@@ -41,28 +38,35 @@ public class Server {
 
             int tmp = 0;
 
-            while (tmp < 10) {
+            String check = "false";
+
+            while (!check.equals("Schachmatt")) {
                 if (tmp != 0) {
                     spielfeld = (Spielfeld) oi.readObject();
                 }
-                spielfeld.print();
+                tmp = 1;
+                check = "false";
 
-                tmp++;
-                System.out.println("Welche Figur wollen Sie bewegen?");
+                while (!check.equals("true") && !check.equals("Schachmatt")) {
+                    spielfeld.print();
 
-                System.out.println("Reihe: ");
-                int reiheFigure = Integer.parseInt(sc.nextLine());
-                System.out.println("Spalte: ");
-                int spalteFigure = Integer.parseInt(sc.nextLine());
+                    System.out.println("Welche Figur wollen Sie bewegen?");
 
-                System.out.println("Wohin wollen Sie sie hinbewegen?");
+                    System.out.println("Reihe: ");
+                    int reiheFigure = Integer.parseInt(sc.nextLine());
+                    System.out.println("Spalte: ");
+                    int spalteFigure = Integer.parseInt(sc.nextLine());
 
-                System.out.println("Reihe: ");
-                int reiheMove = Integer.parseInt(sc.nextLine());
-                System.out.println("Spalte: ");
-                int SpalteMove = Integer.parseInt(sc.nextLine());
+                    System.out.println("Wohin wollen Sie sie hinbewegen?");
 
-                spielfeld.moveFigure(reiheFigure, spalteFigure, reiheMove, SpalteMove);
+                    System.out.println("Reihe: ");
+                    int reiheMove = Integer.parseInt(sc.nextLine());
+                    System.out.println("Spalte: ");
+                    int SpalteMove = Integer.parseInt(sc.nextLine());
+
+                    check = spielfeld.moveFigure(reiheFigure, spalteFigure, reiheMove, SpalteMove);
+
+                }
                 spielfeld.print();
 
                 obj.writeObject(spielfeld);

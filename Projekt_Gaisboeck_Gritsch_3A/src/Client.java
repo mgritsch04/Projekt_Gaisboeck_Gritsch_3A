@@ -23,25 +23,35 @@ public class Client {
 
             int tmp = 0;
 
-            while (tmp < 10) {
+            String check = "false";
+
+            while (!check.equals("Schachmatt")) {
                 Spielfeld spielfeldClient = (Spielfeld) oi.readObject();
                 spielfeldClient.print();
 
-                System.out.println("Welche Figur wollen Sie bewegen?");
+                tmp = 1;
+                check = "false";
 
-                System.out.println("Reihe: ");
-                int reiheFigure = Integer.parseInt(sc.nextLine());
-                System.out.println("Spalte: ");
-                int spalteFigure = Integer.parseInt(sc.nextLine());
+                while (!check.equals("true") && !check.equals("Schachmatt")) {
+                    spielfeldClient.print();
 
-                System.out.println("Wohin wollen Sie sie hinbewegen?");
+                    System.out.println("Welche Figur wollen Sie bewegen?");
 
-                System.out.println("Reihe: ");
-                int reiheMove = Integer.parseInt(sc.nextLine());
-                System.out.println("Spalte: ");
-                int SpalteMove = Integer.parseInt(sc.nextLine());
+                    System.out.println("Reihe: ");
+                    int reiheFigure = Integer.parseInt(sc.nextLine());
+                    System.out.println("Spalte: ");
+                    int spalteFigure = Integer.parseInt(sc.nextLine());
 
-                spielfeldClient.moveFigure(reiheFigure, spalteFigure, reiheMove, SpalteMove);
+                    System.out.println("Wohin wollen Sie sie hinbewegen?");
+
+                    System.out.println("Reihe: ");
+                    int reiheMove = Integer.parseInt(sc.nextLine());
+                    System.out.println("Spalte: ");
+                    int SpalteMove = Integer.parseInt(sc.nextLine());
+
+                    check = spielfeldClient.moveFigure(reiheFigure, spalteFigure, reiheMove, SpalteMove);
+
+                }
                 spielfeldClient.print();
 
                 obj.writeObject(spielfeldClient);
