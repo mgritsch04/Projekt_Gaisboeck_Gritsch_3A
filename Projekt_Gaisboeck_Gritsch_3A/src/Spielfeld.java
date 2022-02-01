@@ -59,6 +59,8 @@ public class Spielfeld implements Serializable {
         spielfeld[0][2] = l1;
         spielfeld[0][3] = d;
         spielfeld[3][4] = k; //test
+        k.position = new Position(3, 4);
+        k.possibleMoves = k.possibleMoves();
         spielfeld[0][5] = l2;
         spielfeld[0][6] = p2;
         spielfeld[0][7] = t2;
