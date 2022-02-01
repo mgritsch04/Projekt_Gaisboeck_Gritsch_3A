@@ -89,7 +89,9 @@ public class Spielfeld implements Serializable {
         bw6.possibleMoves = bw6.possibleMoves();
         bw7.possibleMoves = bw7.possibleMoves();
         bw8.possibleMoves = bw8.possibleMoves();
-        spielfeld[6][0] = bw1;
+        spielfeld[4][3] = bw1; //test
+        spielfeld[4][3].position = new Position(4, 3);
+        spielfeld[4][3].possibleMoves = spielfeld[4][3].possibleMoves();
         spielfeld[6][1] = bw2;
         spielfeld[6][2] = bw3;
 //        spielfeld[6][3] = bw4; //test
@@ -148,11 +150,11 @@ public class Spielfeld implements Serializable {
         Spielfeld s = new Spielfeld();
         s.print();
 
-        s.moveFigure(6, 3, 7, 3);
-        s.print();
-        System.out.println("");
-        s.moveFigure(3, 3, 3, 4);
-        System.out.println("");
+        s.moveFigure(4, 3, 3, 4);
+//        s.print();
+//        System.out.println("");
+//        s.moveFigure(3, 3, 3, 4);
+//        System.out.println("");
         s.print();
 
     }
@@ -165,12 +167,39 @@ public class Spielfeld implements Serializable {
         }
     }
 
-    public boolean moveFigure(int reiheAkt, int spalteAkt, int reiheNeu, int spalteNeu) {
-        boolean successMove = true;
+    public String moveFigure(int reiheAkt, int spalteAkt, int reiheNeu, int spalteNeu) {
+        String successMove = "true";
+
+        if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Bauer.class)) {
+            if (spielfeld[reiheAkt][spalteAkt].isWhite) {
+                //weiß
+                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt - 1)) {
+                    spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt - 1] = false;
+                }
+                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt + 1)) {
+                    spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt + 1] = false;
+                }
+                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt + 1] = false;
+                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt - 1] = false;
+            } else {
+                //schwarz
+                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt - 1)) {
+                    spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt - 1] = false;
+                }
+                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt + 1)) {
+                    spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt + 1] = false;
+                }
+                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt + 1] = false;
+                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt - 1] = false;
+            }
+
+        }
+
+        OUTER:
         if (checkPositionForFigure(reiheNeu, spalteNeu)) {
             if (Objects.equals(spielfeld[reiheAkt][spalteAkt].isWhite, spielfeld[reiheNeu][spalteNeu].isWhite)) {
                 System.out.println("Feld besetzt.");
-                successMove = false;
+                successMove = "false";
             } else {
                 if (spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
                     if (spielfeld[reiheNeu][spalteNeu].getClass().equals(Koenig.class)) {
@@ -180,10 +209,11 @@ public class Spielfeld implements Serializable {
                         spielfeld[reiheNeu][spalteNeu].felderBerechnen();
                         spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
                         spielfeld[reiheAkt][spalteAkt] = null;
-                        this.print();
-                        System.out.println("Schachmatt");
+//                        this.print();
+//                        System.out.println("Schachmatt");
 
-                        System.exit(1);
+                        successMove = "Schachmatt";
+                        break OUTER;
                     }
                     spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
                     spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
@@ -193,17 +223,36 @@ public class Spielfeld implements Serializable {
                     spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
 
                 } else {
-                    successMove = false;
+                    successMove = "false";
                     System.out.println("Ungütliger Spielzug");
                 }
 
             }
         } else {
             if (spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
+
+                if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class)
+                        && spielfeld[reiheAkt][spalteAkt].isFirstMove
+                        && spielfeld[7][4].getClass().equals(Koenig.class)
+                        && spielfeld[7][4].isFirstMove) {
+//                    if (reiheAkt == 7 && spalteAkt 0) {
+
+                    spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+                    spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                    spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+                    spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+                    spielfeld[reiheAkt][spalteAkt] = null;
+                    spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
+                    spielfeld[7][2] = spielfeld[7][4];
+//
+//
+                }
+//>>>>>>> FigurenBewegen
 //                if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class)
 //                        && spielfeld[reiheAkt][spalteAkt].isFirstMove
 //                        && spielfeld[7][4].getClass().equals(Koenig.class)
 //                        && spielfeld[7][4].isFirstMove) {
+//<<<<<<< HEAD
 //                    spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
 //                    spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
 //                    spielfeld[reiheNeu][spalteNeu].felderBerechnen();
@@ -212,6 +261,8 @@ public class Spielfeld implements Serializable {
 //                    spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
 //                    spielfeld[7][2] = spielfeld[7][4];
 //
+//=======
+//>>>>>>> FigurenBewegen
 //
 //                }
 
@@ -222,12 +273,12 @@ public class Spielfeld implements Serializable {
                 spielfeld[reiheAkt][spalteAkt] = null;
                 spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
             } else {
-                successMove = false;
+                successMove = "false";
                 System.out.println("Ungütliger Spielzug");
             }
         }
 
-        if (successMove) {
+        if (successMove.equals("true")) {
             if (spielfeld[reiheNeu][spalteNeu].isWhite) {
                 if (spielfeld[reiheNeu][spalteNeu].getClass().equals(Bauer.class) && reiheNeu == 0) {
                     Scanner sc = new Scanner(System.in);
