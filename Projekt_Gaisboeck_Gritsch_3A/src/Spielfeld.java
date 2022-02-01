@@ -154,7 +154,7 @@ public class Spielfeld {
 //        System.out.println("");
 //        s.moveFigure(3, 3, 3, 4);
 //        System.out.println("");
-//        s.moveFigure(4, 3, 3, 4);
+        s.moveFigure(4, 3, 3, 2);
         s.print();
 
     }
@@ -167,15 +167,14 @@ public class Spielfeld {
         }
     }
 
-    public boolean moveFigure(int reiheAkt, int spalteAkt, int reiheNeu, int spalteNeu) {
-        boolean successMove = true;
+    public String moveFigure(int reiheAkt, int spalteAkt, int reiheNeu, int spalteNeu) {
+        String successMove = "true";
 
         if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Bauer.class)) {
             if (spielfeld[reiheAkt][spalteAkt].isWhite) {
                 //weiß
                 if (!checkPositionForFigure(reiheAkt - 1, spalteAkt - 1)) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt - 1] = false;
-                    System.out.println("baer");
                 }
                 if (!checkPositionForFigure(reiheAkt - 1, spalteAkt + 1)) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt + 1] = false;
@@ -186,7 +185,6 @@ public class Spielfeld {
                 //schwarz
                 if (!checkPositionForFigure(reiheAkt - 1, spalteAkt - 1)) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt - 1] = false;
-                    System.out.println("baer");
                 }
                 if (!checkPositionForFigure(reiheAkt - 1, spalteAkt + 1)) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt + 1] = false;
@@ -200,7 +198,7 @@ public class Spielfeld {
         if (checkPositionForFigure(reiheNeu, spalteNeu)) {
             if (Objects.equals(spielfeld[reiheAkt][spalteAkt].isWhite, spielfeld[reiheNeu][spalteNeu].isWhite)) {
                 System.out.println("Feld besetzt.");
-                successMove = false;
+                successMove = "false";
             } else {
                 if (spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
                     if (spielfeld[reiheNeu][spalteNeu].getClass().equals(Koenig.class)) {
@@ -213,7 +211,7 @@ public class Spielfeld {
                         this.print();
                         System.out.println("Schachmatt");
 
-                        System.exit(1);
+                        successMove = "Schachmatt";
                     }
                     spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
                     spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
@@ -223,7 +221,7 @@ public class Spielfeld {
                     spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
 
                 } else {
-                    successMove = false;
+                    successMove = "false";
                     System.out.println("Ungütliger Spielzug");
                 }
 
@@ -244,12 +242,12 @@ public class Spielfeld {
                 spielfeld[reiheAkt][spalteAkt] = null;
                 spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
             } else {
-                successMove = false;
+                successMove = "false";
                 System.out.println("Ungütliger Spielzug");
             }
         }
 
-        if (successMove) {
+        if (successMove.equals("true")) {
             if (spielfeld[reiheNeu][spalteNeu].isWhite) {
                 if (spielfeld[reiheNeu][spalteNeu].getClass().equals(Bauer.class) && reiheNeu == 0) {
                     Scanner sc = new Scanner(System.in);
