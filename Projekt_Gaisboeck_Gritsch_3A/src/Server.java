@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-import Kommunikation.*;
-
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;

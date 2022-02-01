@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-import Kommunikation.*;
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
@@ -20,7 +19,7 @@ public class Client {
 
     public static void main(String[] args) {
         try {
-            Socket soc = new Socket("localhost", 8020);
+            Socket soc = new Socket("172.20.10.2", 8020);
 
             OutputStream os = soc.getOutputStream();
             ObjectOutput obj = new ObjectOutputStream(os);
