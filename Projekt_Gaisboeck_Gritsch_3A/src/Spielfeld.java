@@ -28,10 +28,7 @@ public class Spielfeld implements Serializable {
         spielfeld[1][0] = b1;
         spielfeld[1][1] = b2;
         spielfeld[1][2] = b3;
-        b4.position = new Position(6, 3);
-        b4.isFirstMove = false;
-        b4.possibleMoves = b4.possibleMoves();
-        spielfeld[6][3] = b4; //test
+        spielfeld[1][3] = b4;
         spielfeld[1][4] = b5;
         spielfeld[1][5] = b6;
         spielfeld[1][6] = b7;
@@ -58,9 +55,7 @@ public class Spielfeld implements Serializable {
         spielfeld[0][1] = p1;
         spielfeld[0][2] = l1;
         spielfeld[0][3] = d;
-        spielfeld[3][4] = k; //test
-        k.position = new Position(3, 4);
-        k.possibleMoves = k.possibleMoves();
+        spielfeld[0][4] = k;
         spielfeld[0][5] = l2;
         spielfeld[0][6] = p2;
         spielfeld[0][7] = t2;
@@ -82,12 +77,10 @@ public class Spielfeld implements Serializable {
         bw6.possibleMoves = bw6.possibleMoves();
         bw7.possibleMoves = bw7.possibleMoves();
         bw8.possibleMoves = bw8.possibleMoves();
-        spielfeld[4][3] = bw1; //test
-        spielfeld[4][3].position = new Position(4, 3);
-        spielfeld[4][3].possibleMoves = spielfeld[4][3].possibleMoves();
+        spielfeld[6][0] = bw1;
         spielfeld[6][1] = bw2;
         spielfeld[6][2] = bw3;
-//        spielfeld[6][3] = bw4; //test
+        spielfeld[6][3] = bw4;
         spielfeld[6][4] = bw5;
         spielfeld[6][5] = bw6;
         spielfeld[6][6] = bw7;
@@ -99,7 +92,7 @@ public class Spielfeld implements Serializable {
         pw1.possibleMoves = pw1.possibleMoves();
         Laeufer lw1 = new Laeufer(new Position(7, 2), true);
         lw1.possibleMoves = lw1.possibleMoves();
-        Dame dw = new Dame(new Position(4, 3), true); //test
+        Dame dw = new Dame(new Position(7, 3), true);
         dw.possibleMoves = dw.possibleMoves();
         Koenig kw = new Koenig(new Position(7, 4), true);
         kw.possibleMoves = kw.possibleMoves();
@@ -113,7 +106,7 @@ public class Spielfeld implements Serializable {
         spielfeld[7][0] = tw1;
         spielfeld[7][1] = pw1;
         spielfeld[7][2] = lw1;
-        spielfeld[3][3] = dw; //test
+        spielfeld[7][3] = dw;
         spielfeld[7][4] = kw;
         spielfeld[7][5] = lw2;
         spielfeld[7][6] = pw2;
@@ -131,25 +124,10 @@ public class Spielfeld implements Serializable {
                 } else {
                     System.out.print(" " + spielfeld[i][j].toString() + " |");
                 }
-
             }
-
             System.out.println("");
             System.out.println("     -------------------------------------");
         }
-    }
-
-    public static void main(String[] args) {
-        Spielfeld s = new Spielfeld();
-        s.print();
-
-        s.moveFigure(6, 7, 5, 7);
-//        s.print();
-//        System.out.println("");
-//        s.moveFigure(3, 3, 3, 4);
-//        System.out.println("");
-        s.print();
-
     }
 
     public boolean checkPositionForFigure(int reihe, int spalte) {
@@ -162,24 +140,29 @@ public class Spielfeld implements Serializable {
 
     public String moveFigure(int reiheAkt, int spalteAkt, int reiheNeu, int spalteNeu) {
         String successMove = "true";
+        boolean moveMade = false;
 
         if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Bauer.class)) {
             if (spielfeld[reiheAkt][spalteAkt].isWhite) {
                 //weiß
-                if (spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && !checkPositionForFigure(reiheAkt - 1, spalteAkt - 1)) {
+                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt - 1) && spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt - 1] = false;
                 }
-                if (spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && spielfeld[reiheAkt][spalteAkt].felderNachVorne > 0 && !checkPositionForFigure(reiheAkt - 1, spalteAkt + 1)) {
+                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt + 1) && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && spielfeld[reiheAkt][spalteAkt].felderNachVorne > 0) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt + 1] = false;
                 }
+                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt + 1] = false;
+                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt - 1] = false;
             } else {
                 //schwarz
-                if (spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0 && !checkPositionForFigure(reiheAkt - 1, spalteAkt - 1)) {
+                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt - 1) && spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt - 1] = false;
                 }
-                if (spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0 && !checkPositionForFigure(reiheAkt - 1, spalteAkt + 1)) {
+                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt + 1) && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt + 1] = false;
                 }
+                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt + 1] = false;
+                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt - 1] = false;
             }
 
         }
@@ -198,8 +181,6 @@ public class Spielfeld implements Serializable {
                         spielfeld[reiheNeu][spalteNeu].felderBerechnen();
                         spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
                         spielfeld[reiheAkt][spalteAkt] = null;
-//                        this.print();
-//                        System.out.println("Schachmatt");
 
                         successMove = "Schachmatt";
                         break OUTER;
@@ -218,24 +199,89 @@ public class Spielfeld implements Serializable {
 
             }
         } else {
-            if (spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
+            //rochade
+            //weißer linker turm
+            if (reiheAkt == 7 && spalteAkt == 0 && spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class) && spielfeld[reiheAkt][spalteAkt].isFirstMove && spielfeld[7][4].getClass().equals(Koenig.class) && spielfeld[7][4].isFirstMove && reiheAkt == reiheNeu && spalteNeu == 3) {
+                spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+                spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+                spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+                spielfeld[reiheAkt][spalteAkt] = null;
+                spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
 
-                //rochade
-                //weißer linker turm
-                if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class) && spielfeld[reiheAkt][spalteAkt].isFirstMove && spielfeld[7][4].getClass().equals(Koenig.class)) {
+                spielfeld[7][2] = spielfeld[7][4];
+                spielfeld[7][2].position = new Position(7, 2);
+                spielfeld[7][2].felderBerechnen();
+                spielfeld[7][2].possibleMoves = spielfeld[7][spalteNeu].possibleMoves();
+                spielfeld[7][4] = null;
+                spielfeld[7][2].isFirstMove = false;
+                moveMade = true;
 
-                } else {
-                    spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
-                    spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
-                    spielfeld[reiheNeu][spalteNeu].felderBerechnen();
-                    spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
-                    spielfeld[reiheAkt][spalteAkt] = null;
-                    spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
-                }
+            } //weißer rechter turm
+            else if (reiheAkt == 7 && spalteAkt == 7 && spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class) && spielfeld[reiheAkt][spalteAkt].isFirstMove && spielfeld[7][4].getClass().equals(Koenig.class) && spielfeld[7][4].isFirstMove && reiheAkt == reiheNeu && spalteNeu == 5) {
+                spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+                spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+                spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+                spielfeld[reiheAkt][spalteAkt] = null;
+                spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
+
+                spielfeld[7][6] = spielfeld[7][4];
+                spielfeld[7][6].position = new Position(7, 5);
+                spielfeld[7][6].felderBerechnen();
+                spielfeld[7][6].possibleMoves = spielfeld[7][spalteNeu].possibleMoves();
+                spielfeld[7][4] = null;
+                spielfeld[7][6].isFirstMove = false;
+                moveMade = true;
+            } //schwarzer linker turm
+            else if (reiheAkt == 0 && spalteAkt == 0 && spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class) && spielfeld[reiheAkt][spalteAkt].isFirstMove && spielfeld[0][4].getClass().equals(Koenig.class) && spielfeld[0][4].isFirstMove && reiheAkt == reiheNeu && spalteNeu == 3) {
+                spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+                spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+                spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+                spielfeld[reiheAkt][spalteAkt] = null;
+                spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
+
+                spielfeld[0][2] = spielfeld[7][4];
+                spielfeld[0][2].position = new Position(0, 2);
+                spielfeld[0][2].felderBerechnen();
+                spielfeld[0][2].possibleMoves = spielfeld[0][spalteNeu].possibleMoves();
+                spielfeld[0][4] = null;
+                spielfeld[0][2].isFirstMove = false;
+                moveMade = true;
+            } //schwarzer rechter turm
+            else if (reiheAkt == 0 && spalteAkt == 7 && spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class) && spielfeld[reiheAkt][spalteAkt].isFirstMove && spielfeld[0][4].getClass().equals(Koenig.class) && spielfeld[0][4].isFirstMove && reiheAkt == reiheNeu && spalteNeu == 5) {
+                spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+                spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+                spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+                spielfeld[reiheAkt][spalteAkt] = null;
+                spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
+
+                spielfeld[0][6] = spielfeld[0][4];
+                spielfeld[0][6].position = new Position(0, 5);
+                spielfeld[0][6].felderBerechnen();
+                spielfeld[0][6].possibleMoves = spielfeld[7][spalteNeu].possibleMoves();
+                spielfeld[0][4] = null;
+                spielfeld[0][6].isFirstMove = false;
+                moveMade = true;
+            }
+
+            if (moveMade == false && spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
+
+                spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+                spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+                spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+                spielfeld[reiheAkt][spalteAkt] = null;
+                spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
 
             } else {
-                successMove = "false";
-                System.out.println("Ungütliger Spielzug");
+                if (moveMade == false) {
+                    successMove = "false";
+                    System.out.println("Ungütliger Spielzug");
+                }
+
             }
         }
 
@@ -254,7 +300,6 @@ public class Spielfeld implements Serializable {
                             case "t":
                             case "l":
                             case "s":
-
                                 break OUTER;
                             default:
                                 break;
