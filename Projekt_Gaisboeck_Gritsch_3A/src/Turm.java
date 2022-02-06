@@ -29,37 +29,19 @@ public class Turm extends Figur implements Serializable {
             }
 
             //nach hintenss
-            for (int i = 0; i <= felderNachVorne; i++) {
-                possibleMoves[position.Reihe + i][position.Spalte] = true;
-            }
-            for (int i = 0; i < felderNachHinten; i++) {
-                possibleMoves[position.Spalte][position.Reihe + i] = true;
-            }
-
-            //nach hintenss
             for (int i = 0; i < felderNachVorne; i++) {
-                possibleMoves[position.Spalte][position.Reihe - i] = true;
-
+                possibleMoves[position.Reihe - i][position.Spalte] = true;
             }
-
             //nach links
             for (int i = 0; i <= felderNachLinks; i++) {
                 possibleMoves[position.Reihe][position.Spalte - i] = true;
             }
 
             //nach rechts
-            for (int i = 0; i <= felderNachRechts; i++) {
+            for (int i = 0; i < felderNachRechts; i++) {
                 possibleMoves[position.Reihe][position.Reihe + i] = true;
             }
-            for (int i = 0; i < felderNachLinks; i++) {
-                possibleMoves[position.Spalte - 1][position.Reihe] = true;
-            }
 
-            //nach rechts
-            for (int i = 0; i < felderNachRechts; i++) {
-                possibleMoves[position.Spalte + i][position.Reihe] = true;
-
-            }
         } else {
             //nach vorne
 
