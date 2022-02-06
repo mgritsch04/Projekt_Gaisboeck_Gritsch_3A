@@ -166,28 +166,22 @@ public class Spielfeld implements Serializable {
         if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Bauer.class)) {
             if (spielfeld[reiheAkt][spalteAkt].isWhite) {
                 //weiß
-                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt - 1) && spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0) {
+                if (spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && !checkPositionForFigure(reiheAkt - 1, spalteAkt - 1)) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt - 1] = false;
                 }
-                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt + 1) && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && spielfeld[reiheAkt][spalteAkt].felderNachVorne > 0) {
+                if (spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && spielfeld[reiheAkt][spalteAkt].felderNachVorne > 0 && !checkPositionForFigure(reiheAkt - 1, spalteAkt + 1)) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt + 1] = false;
                 }
-                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt + 1] = false;
-                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt - 1] = false;
             } else {
                 //schwarz
-                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt - 1) && spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0) {
+                if (spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0 && !checkPositionForFigure(reiheAkt - 1, spalteAkt - 1)) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt - 1] = false;
                 }
-                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt + 1) && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0) {
+                if (spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0 && !checkPositionForFigure(reiheAkt - 1, spalteAkt + 1)) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt + 1] = false;
                 }
-                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt + 1] = false;
-                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt - 1] = false;
             }
-
         }
-
         OUTER:
         if (checkPositionForFigure(reiheNeu, spalteNeu)) {
             if (Objects.equals(spielfeld[reiheAkt][spalteAkt].isWhite, spielfeld[reiheNeu][spalteNeu].isWhite)) {
@@ -226,16 +220,16 @@ public class Spielfeld implements Serializable {
 
                 //rochade
                 //weißer linker turm
-                if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class) && spielfeld[reiheAkt][spalteAkt].isFirstMove && spielfeld[7][4].getClass().equals(Koenig.class)) {
-
-                } else {
-                    spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
-                    spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
-                    spielfeld[reiheNeu][spalteNeu].felderBerechnen();
-                    spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
-                    spielfeld[reiheAkt][spalteAkt] = null;
-                    spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
-                }
+//                if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Turm.class) && spielfeld[reiheAkt][spalteAkt].isFirstMove && spielfeld[7][4].getClass().equals(Koenig.class) && !figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu)) {
+////
+//                } else {
+                spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
+                spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
+                spielfeld[reiheNeu][spalteNeu].felderBerechnen();
+                spielfeld[reiheNeu][spalteNeu].possibleMoves = spielfeld[reiheNeu][spalteNeu].possibleMoves();
+                spielfeld[reiheAkt][spalteAkt] = null;
+                spielfeld[reiheNeu][spalteNeu].isFirstMove = false;
+//                }
 
             } else {
                 successMove = "false";
