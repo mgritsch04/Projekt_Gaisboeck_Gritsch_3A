@@ -142,27 +142,24 @@ public class Spielfeld implements Serializable {
         String successMove = "true";
         boolean moveMade = false;
 
+        //Bauer schlagen
         if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Bauer.class)) {
             if (spielfeld[reiheAkt][spalteAkt].isWhite) {
                 //weiß
-                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt - 1) && spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0) {
+                if (spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0 && spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && !checkPositionForFigure(reiheAkt - 1, spalteAkt - 1)) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt - 1] = false;
                 }
-                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt + 1) && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && spielfeld[reiheAkt][spalteAkt].felderNachVorne > 0) {
+                if (spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0 && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && ! !checkPositionForFigure(reiheAkt - 1, spalteAkt + 1)) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt + 1] = false;
                 }
-                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt + 1] = false;
-                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt - 1] = false;
             } else {
                 //schwarz
-                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt - 1) && spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0) {
-                    spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt - 1] = false;
+                if (spielfeld[reiheAkt][spalteAkt].felderNachVorne > 0 && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && ! !checkPositionForFigure(reiheAkt + 1, spalteAkt + 1)) {
+                    spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt + 1] = false;
                 }
-                if (!checkPositionForFigure(reiheAkt - 1, spalteAkt + 1) && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0) {
-                    spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt + 1] = false;
+                if (spielfeld[reiheAkt][spalteAkt].felderNachVorne > 0 && spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && ! !checkPositionForFigure(reiheAkt + 1, spalteAkt - 1)) {
+                    spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt - 1] = false;
                 }
-                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt + 1] = false;
-                spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt - 1] = false;
             }
 
         }
