@@ -132,9 +132,7 @@ public class Spielfeld {
                 } else {
                     System.out.print(" " + spielfeld[i][j].toString() + " |");
                 }
-
             }
-
             System.out.println("");
             System.out.println("     -------------------------------------");
         }
