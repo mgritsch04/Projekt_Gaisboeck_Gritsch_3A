@@ -29,7 +29,7 @@ public class Turm extends Figur implements Serializable {
             }
 
             //nach hintenss
-            for (int i = 0; i <= felderNachVorne; i++) {
+            for (int i = 0; i < felderNachVorne; i++) {
                 possibleMoves[position.Reihe - i][position.Spalte] = true;
             }
             //nach links
@@ -38,7 +38,7 @@ public class Turm extends Figur implements Serializable {
             }
 
             //nach rechts
-            for (int i = 0; i <= felderNachRechts; i++) {
+            for (int i = 0; i < felderNachRechts; i++) {
                 possibleMoves[position.Reihe][position.Reihe + i] = true;
             }
 

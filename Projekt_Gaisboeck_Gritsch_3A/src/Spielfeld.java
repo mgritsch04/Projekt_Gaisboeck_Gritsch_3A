@@ -77,7 +77,7 @@ public class Spielfeld implements Serializable {
         bw6.possibleMoves = bw6.possibleMoves();
         bw7.possibleMoves = bw7.possibleMoves();
         bw8.possibleMoves = bw8.possibleMoves();
-        spielfeld[6][0] = bw1;
+//        spielfeld[6][0] = bw1;
         spielfeld[6][1] = bw2;
         spielfeld[6][2] = bw3;
         spielfeld[6][3] = bw4;
