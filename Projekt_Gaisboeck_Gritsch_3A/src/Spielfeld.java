@@ -1,4 +1,5 @@
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -12,6 +13,17 @@ import java.util.Scanner;
  * @author maxim
  */
 public class Spielfeld {
+
+    public static void main(String[] args) {
+        Spielfeld s = new Spielfeld();
+        s.moveFigure(7, 0, 1, 0);
+        s.print();
+        System.out.println("");
+
+        s.moveFigure(0, 0, 1, 0);
+        s.print();
+        System.out.println(Arrays.deepToString(s.spielfeld[1][0].possibleMoves));
+    }
 
     Figur[][] spielfeld = new Figur[8][8];
 
@@ -85,7 +97,7 @@ public class Spielfeld {
         bw6.possibleMoves = bw6.possibleMoves();
         bw7.possibleMoves = bw7.possibleMoves();
         bw8.possibleMoves = bw8.possibleMoves();
-        spielfeld[6][0] = bw1;
+//        spielfeld[6][0] = bw1;
         spielfeld[6][1] = bw2;
         spielfeld[6][2] = bw3;
         spielfeld[6][3] = bw4;
