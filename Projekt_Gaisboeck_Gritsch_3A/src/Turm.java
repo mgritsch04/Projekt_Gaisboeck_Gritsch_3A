@@ -39,13 +39,13 @@ public class Turm extends Figur implements Serializable {
 
             //nach rechts
             for (int i = 0; i < felderNachRechts; i++) {
-                possibleMoves[position.Reihe][position.Reihe + i] = true;
+                possibleMoves[position.Reihe][position.Spalte + i] = true;
             }
 
         } else {
             //nach vorne
 
-            for (int i = 0; i <= felderNachVorne + 1; i++) {
+            for (int i = 0; i <= felderNachVorne; i++) {
 
                 possibleMoves[position.Reihe - i][position.Spalte] = true;
             }

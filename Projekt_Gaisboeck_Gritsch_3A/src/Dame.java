@@ -63,7 +63,7 @@ public class Dame extends Figur implements Serializable {
             }
         } else {
             //nach vorne
-            for (int i = 0; i <= felderNachVorne + 1; i++) {
+            for (int i = 0; i <= felderNachVorne; i++) {
                 possibleMoves[position.Reihe - i][position.Spalte] = true;
             }
 
