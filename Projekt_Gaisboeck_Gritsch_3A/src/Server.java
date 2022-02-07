@@ -95,7 +95,6 @@ public class Server {
                     } catch (Exception e) {
                         System.out.println("ERROR");
                     }
-
                 }
                 if (!check.equals("Schachmatt")) {
                     obj.writeObject(spielfeld);
