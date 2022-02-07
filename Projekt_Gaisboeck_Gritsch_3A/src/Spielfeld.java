@@ -7,14 +7,17 @@ public class Spielfeld implements Serializable {
 
     public static void main(String[] args) {
         Spielfeld s = new Spielfeld();
-
-        s.moveFigure(6, 1, 4, 1);
-        System.out.println(s.spielfeld[4][1].possibleMoves[3][2]);
-        s.moveFigure(1, 2, 3, 2);
-        System.out.println(s.spielfeld[4][1].possibleMoves[3][2]);
-        System.out.println("");
-        System.out.println(s.spielfeld[4][1].possibleMoves[3][2]);
-        s.moveFigure(4, 1, 3, 2);
+        s.moveFigure(6, 3, 4, 3);
+        s.moveFigure(1, 4, 3, 4);
+        s.moveFigure(4, 3, 3, 4);
+        s.moveFigure(7, 3, 1, 3);
+        s.moveFigure(1, 3, 1, 5);
+        s.moveFigure(1, 5, 1, 2);
+        s.moveFigure(1, 2, 1, 1);
+        s.moveFigure(1, 1, 1, 6);
+        s.moveFigure(1, 6, 1, 0);
+        s.moveFigure(1, 0, 1, 7);
+        s.print();
     }
 
     Figur[][] spielfeld = new Figur[8][8];
@@ -276,10 +279,6 @@ public class Spielfeld implements Serializable {
                 moveMade = true;
             }
 
-            System.out.println(moveMade + " (false)");
-            System.out.println(spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] + " (true)");
-            System.out.println(figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) + " (false");
-
             if (moveMade == false && spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
                 spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
                 spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
@@ -388,15 +387,15 @@ public class Spielfeld implements Serializable {
         if (spielfeld[reiheAkt][spalteAkt].isWhite) {
             if (spalteAkt == spalteNeu) {
                 //vorne
-                if (reiheAkt > reiheNeu) {
-                    for (int i = reiheAkt - 1; i >= reiheNeu; i--) {
+                if (reiheAkt > reiheNeu && reiheAkt + 1 != reiheNeu) {
+                    for (int i = reiheAkt - 1; i > reiheNeu; i--) {
                         if (checkPositionForFigure(i, spalteAkt)) {
                             figurebetween = true;
                         }
                     }
                 } else {
                     //hinten
-                    for (int i = reiheAkt + 1; i <= reiheNeu; i++) {
+                    for (int i = reiheAkt + 1; i < reiheNeu; i++) {
                         if (checkPositionForFigure(i, spalteAkt)) {
                             figurebetween = true;
                         }
@@ -408,7 +407,7 @@ public class Spielfeld implements Serializable {
             if (reiheAkt == reiheNeu) {
                 //links
                 if (spalteAkt > spalteNeu) {
-                    for (int i = spalteAkt - 1; i >= spalteNeu; i--) {
+                    for (int i = spalteAkt - 1; i > spalteNeu; i--) {
                         if (checkPositionForFigure(reiheAkt, i)) {
                             figurebetween = true;
                         }
@@ -416,7 +415,7 @@ public class Spielfeld implements Serializable {
                     }
                 } else {
                     //rechts
-                    for (int i = spalteAkt + 1; i <= spalteNeu; i++) {
+                    for (int i = spalteAkt + 1; i < spalteNeu; i++) {
                         if (checkPositionForFigure(reiheAkt, i)) {
                             figurebetween = true;
                         }
@@ -476,14 +475,14 @@ public class Spielfeld implements Serializable {
             if (spalteAkt == spalteNeu) {
                 //vorne
                 if (reiheAkt < reiheNeu) {
-                    for (int i = reiheAkt + 1; i <= reiheNeu; i++) {
+                    for (int i = reiheAkt + 1; i < reiheNeu; i++) {
                         if (checkPositionForFigure(i, spalteAkt)) {
                             figurebetween = true;
                         }
                     }
                 } else {
                     //hinten
-                    for (int i = reiheAkt - 1; i >= reiheNeu; i--) {
+                    for (int i = reiheAkt - 1; i > reiheNeu; i--) {
                         if (checkPositionForFigure(i, spalteAkt)) {
                             figurebetween = true;
                         }
@@ -495,7 +494,7 @@ public class Spielfeld implements Serializable {
             if (reiheAkt == reiheNeu) {
                 //links
                 if (spalteAkt < spalteNeu) {
-                    for (int i = spalteAkt + 1; i <= spalteNeu; i++) {
+                    for (int i = spalteAkt + 1; i < spalteNeu; i++) {
                         if (checkPositionForFigure(reiheAkt, i)) {
                             figurebetween = true;
                         }
