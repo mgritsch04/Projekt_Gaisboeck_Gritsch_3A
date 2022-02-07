@@ -5,21 +5,6 @@ import java.util.Scanner;
 
 public class Spielfeld implements Serializable {
 
-    public static void main(String[] args) {
-        Spielfeld s = new Spielfeld();
-        s.moveFigure(6, 3, 4, 3);
-        s.moveFigure(1, 4, 3, 4);
-        s.moveFigure(4, 3, 3, 4);
-        s.moveFigure(7, 3, 1, 3);
-        s.moveFigure(1, 3, 1, 5);
-        s.moveFigure(1, 5, 1, 2);
-        s.moveFigure(1, 2, 1, 1);
-        s.moveFigure(1, 1, 1, 6);
-        s.moveFigure(1, 6, 1, 0);
-        s.moveFigure(1, 0, 1, 7);
-        s.print();
-    }
-
     Figur[][] spielfeld = new Figur[8][8];
 
     public Spielfeld() {
@@ -143,6 +128,7 @@ public class Spielfeld implements Serializable {
             System.out.println("");
             System.out.println("     -------------------------------------");
         }
+        System.out.println("");
     }
 
     public boolean checkPositionForFigure(int reihe, int spalte) {
@@ -154,13 +140,16 @@ public class Spielfeld implements Serializable {
     }
 
     public String moveFigure(int reiheAkt, int spalteAkt, int reiheNeu, int spalteNeu) {
+        spielfeld[reiheAkt][spalteAkt].felderNachVorne = spielfeld[reiheAkt][spalteAkt].felderNachVorne + 1;
+        spielfeld[reiheAkt][spalteAkt].felderBerechnen();
+        spielfeld[reiheAkt][spalteAkt].possibleMoves = spielfeld[reiheAkt][spalteAkt].possibleMoves();
+
         String successMove = "true";
         boolean moveMade = false;
 
         //Bauer schlagen
         if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Bauer.class)) {
             if (spielfeld[reiheAkt][spalteAkt].isWhite) {
-                //weiß
                 if (spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0 && spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && !checkPositionForFigure(reiheAkt - 1, spalteAkt - 1)) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt - 1][spalteAkt - 1] = false;
                 }
@@ -169,10 +158,10 @@ public class Spielfeld implements Serializable {
                 }
             } else {
                 //schwarz
-                if (spielfeld[reiheAkt][spalteAkt].felderNachVorne > 0 && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && !checkPositionForFigure(reiheAkt + 1, spalteAkt + 1)) {
+                if (spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0 && spielfeld[reiheAkt][spalteAkt].felderNachRechts > 0 && !checkPositionForFigure(reiheAkt + 1, spalteAkt + 1)) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt + 1] = false;
                 }
-                if (spielfeld[reiheAkt][spalteAkt].felderNachVorne > 0 && spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && !checkPositionForFigure(reiheAkt + 1, spalteAkt - 1)) {
+                if (spielfeld[reiheAkt][spalteAkt].felderNachHinten > 0 && spielfeld[reiheAkt][spalteAkt].felderNachLinks > 0 && !checkPositionForFigure(reiheAkt + 1, spalteAkt - 1)) {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt - 1] = false;
                 }
             }
@@ -277,9 +266,7 @@ public class Spielfeld implements Serializable {
                 spielfeld[0][4] = null;
                 spielfeld[0][6].isFirstMove = false;
                 moveMade = true;
-            }
-
-            if (moveMade == false && spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
+            } else if (moveMade == false && spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheNeu][spalteNeu] == true && figureBetweenMove(reiheAkt, spalteAkt, reiheNeu, spalteNeu) == false) {
                 spielfeld[reiheNeu][spalteNeu] = spielfeld[reiheAkt][spalteAkt];
                 spielfeld[reiheNeu][spalteNeu].position = new Position(reiheNeu, spalteNeu);
                 spielfeld[reiheNeu][spalteNeu].felderBerechnen();
@@ -295,29 +282,29 @@ public class Spielfeld implements Serializable {
 
             }
         }
-
+        OUTER:
+        OUTER2:
         if (successMove.equals("true")) {
             if (spielfeld[reiheNeu][spalteNeu].isWhite) {
                 if (spielfeld[reiheNeu][spalteNeu].getClass().equals(Bauer.class) && reiheNeu == 0) {
                     Scanner sc = new Scanner(System.in);
                     System.out.println("Bauer durch Dame (d), Turm (t), Läufer (l), oder Springer (s) tauschen?");
-                    String newFigure = sc.nextLine();
 
-                    OUTER:
                     while (true) {
-                        newFigure = sc.nextLine();
+                        String newFigure = sc.nextLine();
+
                         switch (newFigure) {
                             case "d":
                             case "t":
                             case "l":
                             case "s":
+                                upgradeFigure(reiheNeu, spalteNeu, newFigure);
                                 break OUTER;
                             default:
                                 break;
                         }
                     }
 
-                    upgradeFigure(reiheNeu, spalteNeu, newFigure);
                 }
             } else {
                 if (spielfeld[reiheNeu][spalteNeu].getClass().equals(Bauer.class) && reiheNeu == 7) {
@@ -325,21 +312,21 @@ public class Spielfeld implements Serializable {
                     System.out.println("Bauer durch Dame (d), Turm (t), Läufer (l), oder Springer (s) tauschen?");
                     String newFigure = "";
 
-                    OUTER:
                     while (true) {
                         newFigure = sc.nextLine();
+
                         switch (newFigure) {
                             case "d":
                             case "t":
                             case "l":
                             case "s":
-
-                                break OUTER;
+                                upgradeFigure(reiheNeu, spalteNeu, newFigure);
+                                break OUTER2;
                             default:
                                 break;
                         }
                     }
-                    upgradeFigure(reiheNeu, spalteNeu, newFigure);
+
                 }
             }
         }
@@ -351,30 +338,46 @@ public class Spielfeld implements Serializable {
             switch (newFigure) {
                 case "d":
                     spielfeld[reihe][spalte] = new Dame(new Position(reihe, spalte), true);
+                    spielfeld[reihe][spalte].possibleMoves = spielfeld[reihe][spalte].possibleMoves();
+                    spielfeld[reihe][spalte].felderBerechnen();
                     break;
                 case "t":
                     spielfeld[reihe][spalte] = new Turm(new Position(reihe, spalte), true);
+                    spielfeld[reihe][spalte].possibleMoves = spielfeld[reihe][spalte].possibleMoves();
+                    spielfeld[reihe][spalte].felderBerechnen();
                     break;
                 case "l":
                     spielfeld[reihe][spalte] = new Laeufer(new Position(reihe, spalte), true);
+                    spielfeld[reihe][spalte].possibleMoves = spielfeld[reihe][spalte].possibleMoves();
+                    spielfeld[reihe][spalte].felderBerechnen();
                     break;
                 case "s":
                     spielfeld[reihe][spalte] = new Pferd(new Position(reihe, spalte), true);
+                    spielfeld[reihe][spalte].possibleMoves = spielfeld[reihe][spalte].possibleMoves();
+                    spielfeld[reihe][spalte].felderBerechnen();
                     break;
             }
         } else {
             switch (newFigure) {
                 case "d":
                     spielfeld[reihe][spalte] = new Dame(new Position(reihe, spalte), false);
+                    spielfeld[reihe][spalte].possibleMoves = spielfeld[reihe][spalte].possibleMoves();
+                    spielfeld[reihe][spalte].felderBerechnen();
                     break;
                 case "t":
                     spielfeld[reihe][spalte] = new Turm(new Position(reihe, spalte), false);
+                    spielfeld[reihe][spalte].possibleMoves = spielfeld[reihe][spalte].possibleMoves();
+                    spielfeld[reihe][spalte].felderBerechnen();
                     break;
                 case "l":
                     spielfeld[reihe][spalte] = new Laeufer(new Position(reihe, spalte), false);
+                    spielfeld[reihe][spalte].possibleMoves = spielfeld[reihe][spalte].possibleMoves();
+                    spielfeld[reihe][spalte].felderBerechnen();
                     break;
                 case "s":
                     spielfeld[reihe][spalte] = new Pferd(new Position(reihe, spalte), false);
+                    spielfeld[reihe][spalte].possibleMoves = spielfeld[reihe][spalte].possibleMoves();
+                    spielfeld[reihe][spalte].felderBerechnen();
                     break;
             }
         }
@@ -384,182 +387,187 @@ public class Spielfeld implements Serializable {
     public boolean figureBetweenMove(int reiheAkt, int spalteAkt, int reiheNeu, int spalteNeu) {
         boolean figurebetween = false;
 
-        if (spielfeld[reiheAkt][spalteAkt].isWhite) {
-            if (spalteAkt == spalteNeu) {
-                //vorne
-                if (reiheAkt > reiheNeu && reiheAkt + 1 != reiheNeu) {
-                    for (int i = reiheAkt - 1; i > reiheNeu; i--) {
-                        if (checkPositionForFigure(i, spalteAkt)) {
-                            figurebetween = true;
-                        }
-                    }
-                } else {
-                    //hinten
-                    for (int i = reiheAkt + 1; i < reiheNeu; i++) {
-                        if (checkPositionForFigure(i, spalteAkt)) {
-                            figurebetween = true;
-                        }
-                    }
-                }
-
-            }
-
-            if (reiheAkt == reiheNeu) {
-                //links
-                if (spalteAkt > spalteNeu) {
-                    for (int i = spalteAkt - 1; i > spalteNeu; i--) {
-                        if (checkPositionForFigure(reiheAkt, i)) {
-                            figurebetween = true;
-                        }
-
-                    }
-                } else {
-                    //rechts
-                    for (int i = spalteAkt + 1; i < spalteNeu; i++) {
-                        if (checkPositionForFigure(reiheAkt, i)) {
-                            figurebetween = true;
-                        }
-                    }
-                }
-
-            }
-            //diagonal rechts vorne
-            if (reiheAkt > reiheNeu && spalteAkt < spalteNeu && reiheAkt - 1 != reiheNeu && spalteAkt + 1 != spalteNeu) {
-                int j = 0;
-                for (int i = reiheAkt - 1; i >= reiheNeu; i--) {
-                    j++;
-                    if (checkPositionForFigure(i, (spalteAkt + j))) {
-                        figurebetween = true;
-                    }
-                }
-            }
-
-            //diagonal links vorne
-            if (reiheAkt > reiheNeu && spalteAkt > spalteNeu && reiheAkt - 1 != reiheNeu && spalteAkt - 1 != spalteNeu) {
-                int j = 0;
-                for (int i = reiheAkt - 1; i >= reiheNeu; i--) {
-                    j++;
-                    if (checkPositionForFigure(i, spalteAkt - j)) {
-                        figurebetween = true;
-                    }
-
-                }
-            }
-
-            //diagonal rechts hinten
-            if (reiheAkt < reiheNeu && spalteAkt < spalteNeu && reiheAkt + 1 != reiheNeu && spalteAkt + 1 != spalteNeu) {
-                int j = 0;
-                for (int i = reiheAkt + 1; i <= reiheNeu; i++) {
-                    j++;
-                    if (checkPositionForFigure(i, spalteAkt + j)) {
-                        figurebetween = true;
-                    }
-
-                }
-            }
-
-            //diagonal links hinten
-            if (reiheAkt < reiheNeu && spalteAkt > spalteNeu && reiheAkt + 1 != reiheNeu && spalteAkt - 1 != spalteNeu) {
-                int j = 0;
-                for (int i = reiheAkt + 1; i <= reiheNeu; i++) {
-                    j++;
-                    if (checkPositionForFigure(i, spalteAkt - j)) {
-                        figurebetween = true;
-
-                    }
-                }
-            }
+        if (spielfeld[reiheAkt][spalteAkt].getClass().equals(Pferd.class)) {
 
         } else {
+            if (spielfeld[reiheAkt][spalteAkt].isWhite) {
+                if (spalteAkt == spalteNeu) {
+                    //vorne
+                    if (reiheAkt > reiheNeu && reiheAkt + 1 != reiheNeu) {
+                        for (int i = reiheAkt - 1; i > reiheNeu; i--) {
+                            if (checkPositionForFigure(i, spalteAkt)) {
+                                figurebetween = true;
+                            }
+                        }
+                    } else {
+                        //hinten
+                        for (int i = reiheAkt + 1; i < reiheNeu; i++) {
+                            if (checkPositionForFigure(i, spalteAkt)) {
+                                figurebetween = true;
+                            }
+                        }
+                    }
 
-            if (spalteAkt == spalteNeu) {
-                //vorne
-                if (reiheAkt < reiheNeu) {
-                    for (int i = reiheAkt + 1; i < reiheNeu; i++) {
-                        if (checkPositionForFigure(i, spalteAkt)) {
+                }
+
+                if (reiheAkt == reiheNeu) {
+                    //links
+                    if (spalteAkt > spalteNeu) {
+                        for (int i = spalteAkt - 1; i > spalteNeu; i--) {
+                            if (checkPositionForFigure(reiheAkt, i)) {
+                                figurebetween = true;
+                            }
+
+                        }
+                    } else {
+                        //rechts
+                        for (int i = spalteAkt + 1; i < spalteNeu; i++) {
+                            if (checkPositionForFigure(reiheAkt, i)) {
+                                figurebetween = true;
+                            }
+                        }
+                    }
+
+                }
+                //diagonal rechts vorne
+                if (reiheAkt > reiheNeu && spalteAkt < spalteNeu && reiheAkt - 1 != reiheNeu && spalteAkt + 1 != spalteNeu) {
+                    int j = 0;
+                    for (int i = reiheAkt - 1; i >= reiheNeu; i--) {
+                        j++;
+                        if (checkPositionForFigure(i, (spalteAkt + j))) {
                             figurebetween = true;
                         }
                     }
-                } else {
-                    //hinten
-                    for (int i = reiheAkt - 1; i > reiheNeu; i--) {
-                        if (checkPositionForFigure(i, spalteAkt)) {
-                            figurebetween = true;
-                        }
-                    }
                 }
 
-            }
-
-            if (reiheAkt == reiheNeu) {
-                //links
-                if (spalteAkt < spalteNeu) {
-                    for (int i = spalteAkt + 1; i < spalteNeu; i++) {
-                        if (checkPositionForFigure(reiheAkt, i)) {
+                //diagonal links vorne
+                if (reiheAkt > reiheNeu && spalteAkt > spalteNeu && reiheAkt - 1 != reiheNeu && spalteAkt - 1 != spalteNeu) {
+                    int j = 0;
+                    for (int i = reiheAkt - 1; i >= reiheNeu; i--) {
+                        j++;
+                        if (checkPositionForFigure(i, spalteAkt - j)) {
                             figurebetween = true;
                         }
 
                     }
-                } else {
-                    //rechts
-                    for (int i = spalteAkt - 1; i > spalteNeu; i--) {
-                        if (checkPositionForFigure(reiheAkt, i)) {
+                }
+
+                //diagonal rechts hinten
+                if (reiheAkt < reiheNeu && spalteAkt < spalteNeu && reiheAkt + 1 != reiheNeu && spalteAkt + 1 != spalteNeu) {
+                    int j = 0;
+                    for (int i = reiheAkt + 1; i <= reiheNeu; i++) {
+                        j++;
+                        if (checkPositionForFigure(i, spalteAkt + j)) {
                             figurebetween = true;
+                        }
+
+                    }
+                }
+
+                //diagonal links hinten
+                if (reiheAkt < reiheNeu && spalteAkt > spalteNeu && reiheAkt + 1 != reiheNeu && spalteAkt - 1 != spalteNeu) {
+                    int j = 0;
+                    for (int i = reiheAkt + 1; i <= reiheNeu; i++) {
+                        j++;
+                        if (checkPositionForFigure(i, spalteAkt - j)) {
+                            figurebetween = true;
+
                         }
                     }
                 }
 
-            }
+            } else {
 
-            //diagonal rechts vorne
-            if (reiheAkt < reiheNeu && spalteAkt < spalteNeu && reiheAkt + 1 != reiheNeu && spalteAkt + 1 != spalteNeu) {
-                int j = 0;
-                for (int i = reiheAkt + 1; i <= reiheNeu; i++) {
-                    j++;
-                    if (checkPositionForFigure(i, spalteAkt + j)) {
-                        figurebetween = true;
+                if (spalteAkt == spalteNeu) {
+                    //vorne
+                    if (reiheAkt < reiheNeu) {
+                        for (int i = reiheAkt + 1; i < reiheNeu; i++) {
+                            if (checkPositionForFigure(i, spalteAkt)) {
+                                figurebetween = true;
+                            }
+                        }
+                    } else {
+                        //hinten
+                        for (int i = reiheAkt - 1; i > reiheNeu; i--) {
+                            if (checkPositionForFigure(i, spalteAkt)) {
+                                figurebetween = true;
+                            }
+                        }
                     }
 
                 }
-            }
 
-            //diagonal links vorne
-            if (reiheAkt < reiheNeu && spalteAkt > spalteNeu && reiheAkt + 1 != reiheNeu && spalteAkt + 1 != spalteNeu) {
-                int j = 0;
-                for (int i = reiheAkt + 1; i <= reiheNeu; i++) {
-                    j++;
-                    if (checkPositionForFigure(i, spalteAkt - j)) {
-                        figurebetween = true;
+                if (reiheAkt == reiheNeu) {
+                    //links
+                    if (spalteAkt < spalteNeu) {
+                        for (int i = spalteAkt + 1; i < spalteNeu; i++) {
+                            if (checkPositionForFigure(reiheAkt, i)) {
+                                figurebetween = true;
+                            }
+
+                        }
+                    } else {
+                        //rechts
+                        for (int i = spalteAkt - 1; i > spalteNeu; i--) {
+                            if (checkPositionForFigure(reiheAkt, i)) {
+                                figurebetween = true;
+                            }
+                        }
                     }
 
                 }
-            }
 
-            //diagonal rechts hinten
-            if (reiheAkt > reiheNeu && spalteAkt < spalteNeu && reiheAkt - 1 != reiheNeu && spalteAkt + 1 != spalteNeu) {
-                int j = 0;
-                for (int i = reiheAkt - 1; i >= reiheNeu; i--) {
-                    j++;
-                    if (checkPositionForFigure(i, spalteAkt + j)) {
-                        figurebetween = true;
+                //diagonal rechts vorne
+                if (reiheAkt < reiheNeu && spalteAkt < spalteNeu && reiheAkt + 1 != reiheNeu && spalteAkt + 1 != spalteNeu) {
+                    int j = 0;
+                    for (int i = reiheAkt + 1; i <= reiheNeu; i++) {
+                        j++;
+                        if (checkPositionForFigure(i, spalteAkt + j)) {
+                            figurebetween = true;
+                        }
+
                     }
-
                 }
-            }
 
-            //diagonal links hinten
-            if (reiheAkt > reiheNeu && spalteAkt > spalteNeu && reiheAkt - 1 != reiheNeu && spalteAkt - 1 != spalteNeu) {
-                int j = 0;
-                for (int i = reiheAkt - 1; i >= reiheNeu; i--) {
-                    j++;
-                    if (checkPositionForFigure(i, spalteAkt - j)) {
-                        figurebetween = true;
+                //diagonal links vorne
+                if (reiheAkt < reiheNeu && spalteAkt > spalteNeu && reiheAkt + 1 != reiheNeu && spalteAkt + 1 != spalteNeu) {
+                    int j = 0;
+                    for (int i = reiheAkt + 1; i <= reiheNeu; i++) {
+                        j++;
+                        if (checkPositionForFigure(i, spalteAkt - j)) {
+                            figurebetween = true;
+                        }
+
                     }
-
                 }
-            }
 
+                //diagonal rechts hinten
+                if (reiheAkt > reiheNeu && spalteAkt < spalteNeu && reiheAkt - 1 != reiheNeu && spalteAkt + 1 != spalteNeu) {
+                    int j = 0;
+                    for (int i = reiheAkt - 1; i >= reiheNeu; i--) {
+                        j++;
+                        if (checkPositionForFigure(i, spalteAkt + j)) {
+                            figurebetween = true;
+                        }
+
+                    }
+                }
+
+                //diagonal links hinten
+                if (reiheAkt > reiheNeu && spalteAkt > spalteNeu && reiheAkt - 1 != reiheNeu && spalteAkt - 1 != spalteNeu) {
+                    int j = 0;
+                    for (int i = reiheAkt - 1; i >= reiheNeu; i--) {
+                        j++;
+                        if (checkPositionForFigure(i, spalteAkt - j)) {
+                            figurebetween = true;
+                        }
+
+                    }
+                }
+
+            }
         }
+
         return figurebetween;
     }
 }

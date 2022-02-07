@@ -29,42 +29,42 @@ public class Koenig extends Figur implements Serializable {
             }
 
             //1 nach hinten
-            if (felderNachVorne >= 0) {
+            if (felderNachVorne > 0) {
                 possibleMoves[position.Reihe - 1][position.Spalte] = true;
             }
 
             //1 nach rechts
-            if (felderNachRechts >= 0) {
+            if (felderNachRechts > 0) {
                 possibleMoves[position.Reihe][position.Spalte + 1] = true;
             }
 
             //1 nach links
-            if (felderNachLinks >= 0) {
+            if (felderNachLinks > 0) {
                 possibleMoves[position.Reihe][position.Spalte - 1] = true;
             }
 
             //1 diagonal rechts
-            if (felderNachHinten >= 0 && felderNachRechts >= 0) {
+            if (felderNachHinten > 0 && felderNachRechts > 0) {
                 possibleMoves[position.Reihe + 1][position.Spalte + 1] = true;
             }
 
             //1 diagonal links
-            if (felderNachHinten >= 0 && felderNachLinks >= 0) {
+            if (felderNachHinten > 0 && felderNachLinks > 0) {
                 possibleMoves[position.Reihe + 1][position.Spalte - 1] = true;
             }
 
             //diagonal rechts hinten
-            if (felderNachVorne >= 0 && felderNachRechts >= 0) {
+            if (felderNachVorne > 0 && felderNachRechts > 0) {
                 possibleMoves[position.Reihe - 1][position.Spalte + 1] = true;
             }
 
             //diagonal links hinten
-            if (felderNachVorne >= 0 && felderNachLinks >= 0) {
+            if (felderNachVorne > 0 && felderNachLinks > 0) {
                 possibleMoves[position.Reihe - 1][position.Spalte - 1] = true;
             }
         } else {
             //1 nach vorne
-            if (felderNachVorne >= 0) {
+            if (felderNachVorne > 0) {
                 possibleMoves[position.Reihe - 1][position.Spalte] = true;
             }
 
@@ -74,32 +74,32 @@ public class Koenig extends Figur implements Serializable {
             }
 
             //1 nach rechts
-            if (felderNachRechts >= 0) {
+            if (felderNachRechts > 0) {
                 possibleMoves[position.Reihe][position.Spalte + 1] = true;
             }
 
             //1 nach links
-            if (felderNachLinks >= 0) {
+            if (felderNachLinks > 0) {
                 possibleMoves[position.Reihe][position.Spalte - 1] = true;
             }
 
             //1 diagonal rechts
-            if (felderNachVorne >= 0 && felderNachRechts >= 0) {
+            if (felderNachVorne > 0 && felderNachRechts > 0) {
                 possibleMoves[position.Reihe - 1][position.Spalte + 1] = true;
             }
 
             //1 diagonal links
-            if (felderNachVorne >= 0 && felderNachLinks >= 0) {
+            if (felderNachVorne > 0 && felderNachLinks > 0) {
                 possibleMoves[position.Reihe - 1][position.Spalte - 1] = true;
             }
 
             //diagonal rechts hinten
-            if (felderNachHinten > 0 && felderNachRechts >= 0) {
+            if (felderNachHinten > 0 && felderNachRechts > 0) {
                 possibleMoves[position.Reihe + 1][position.Spalte + 1] = true;
             }
 
             //diagonal links hinten
-            if (felderNachHinten > 0 && felderNachLinks >= 0) {
+            if (felderNachHinten > 0 && felderNachLinks > 0) {
                 possibleMoves[position.Reihe + 1][position.Spalte - 1] = true;
             }
         }
