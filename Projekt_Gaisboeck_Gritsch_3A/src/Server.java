@@ -33,7 +33,7 @@ public class Server {
 
         try {
             Scanner sc = new Scanner(System.in);
-            System.out.println("GewÃ¼nschten Port eingeben:");
+            System.out.println("Gewünschten Port eingeben:");
             int port = Integer.parseInt(sc.nextLine());
             boolean isWhiteServer = true;
             server = new ServerSocket(port);
