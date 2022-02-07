@@ -69,8 +69,8 @@ public class Koenig extends Figur implements Serializable {
             }
 
             //1 nach hinten
-            if (felderNachHinten >= 0) {
-                possibleMoves[position.Reihe - 1][position.Spalte] = true;
+            if (felderNachHinten > 0) {
+                possibleMoves[position.Reihe + 1][position.Spalte] = true;
             }
 
             //1 nach rechts
@@ -94,13 +94,13 @@ public class Koenig extends Figur implements Serializable {
             }
 
             //diagonal rechts hinten
-            if (felderNachHinten >= 0 && felderNachRechts >= 0) {
-                possibleMoves[position.Reihe - 1][position.Spalte + 1] = true;
+            if (felderNachHinten > 0 && felderNachRechts >= 0) {
+                possibleMoves[position.Reihe + 1][position.Spalte + 1] = true;
             }
 
             //diagonal links hinten
-            if (felderNachHinten >= 0 && felderNachLinks >= 0) {
-                possibleMoves[position.Reihe - 1][position.Spalte - 1] = true;
+            if (felderNachHinten > 0 && felderNachLinks >= 0) {
+                possibleMoves[position.Reihe + 1][position.Spalte - 1] = true;
             }
         }
 

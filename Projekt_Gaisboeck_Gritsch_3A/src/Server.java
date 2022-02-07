@@ -5,8 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -71,7 +69,6 @@ public class Server {
                     System.out.println("Welche Figur wollen Sie bewegen?");
 
                     try {
-
                         System.out.println("Reihe: ");
                         int reiheFigure = Integer.parseInt(sc.nextLine());
                         System.out.println("Spalte: ");
