@@ -69,7 +69,6 @@ public class Server {
                     System.out.println("Welche Figur wollen Sie bewegen?");
 
                     try {
-
                         System.out.println("Reihe: ");
                         int reiheFigure = Integer.parseInt(sc.nextLine());
                         System.out.println("Spalte: ");

@@ -58,7 +58,7 @@ public class Laeufer extends Figur implements Serializable {
             }
 
             //diagonal rechts hinten
-            for (int i = 0; i <= felderNachHinten && i <= felderNachLinks; i++) {
+            for (int i = 0; i <= felderNachHinten && i <= felderNachRechts; i++) {
                 possibleMoves[position.Reihe + i][position.Spalte + i] = true;
             }
 

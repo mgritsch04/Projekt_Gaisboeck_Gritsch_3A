@@ -26,11 +26,12 @@ public class Bauer extends Figur implements Serializable {
         }
 
         if (white == false) {
+            //1 nach vorne
             if (felderNachHinten > 0) {
                 possibleMoves[position.Reihe + 1][position.Spalte] = true;
             }
             //2 nach vorne
-            if (felderNachHinten >= 2 && isFirstMove) {
+            if (felderNachHinten > 1 && isFirstMove) {
                 possibleMoves[position.Reihe + 2][position.Spalte] = true;
             }
 
