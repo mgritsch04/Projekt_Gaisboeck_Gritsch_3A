@@ -17,9 +17,9 @@ public class Client {
             Spielfeld spielfeldClient = null;
             boolean isWhiteClient = false;
             Scanner sc = new Scanner(System.in);
-            System.out.println("Geben Sie die gewünschte IP-Adresse ein:");
+            System.out.println("Gib die gewünschte IP-Adresse ein:");
             String ipAdress = sc.nextLine();
-            System.out.println("Geben Sie die gewünschten Port ein:");
+            System.out.println("Gib den gewünschten Port ein:");
             int port = Integer.parseInt(sc.nextLine());
             Socket soc = new Socket(ipAdress, port);
 
@@ -47,7 +47,7 @@ public class Client {
                 while (!check.equals("true") && !check.equals("Schachmatt")) {
                     spielfeldClient.print();
 
-                    System.out.println("Welche Figur wollen Sie bewegen?");
+                    System.out.println("Welche Figur willst du bewegen?");
 
                     try {
                         System.out.println("Reihe: ");
@@ -55,7 +55,7 @@ public class Client {
                         System.out.println("Spalte: ");
                         int spalteFigure = Integer.parseInt(sc.nextLine());
 
-                        System.out.println("Wohin wollen Sie sie hinbewegen?");
+                        System.out.println("Wohin willst du sie bewegen?");
 
                         System.out.println("Reihe: ");
                         int reiheMove = Integer.parseInt(sc.nextLine());

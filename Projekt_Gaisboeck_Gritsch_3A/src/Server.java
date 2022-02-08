@@ -33,7 +33,7 @@ public class Server {
 
         try {
             Scanner sc = new Scanner(System.in);
-            System.out.println("Gewünschten Port eingeben:");
+            System.out.println("Gib den gewünschten Port ein:");
             int port = Integer.parseInt(sc.nextLine());
             boolean isWhiteServer = true;
             server = new ServerSocket(port);
@@ -68,7 +68,7 @@ public class Server {
                 while (!check.equals("true") && !check.equals("Schachmatt")) {
                     spielfeld.print();
 
-                    System.out.println("Welche Figur wollen Sie bewegen?");
+                    System.out.println("Welche Figur willst du bewegen?");
 
                     try {
                         System.out.println("Reihe: ");
@@ -76,7 +76,7 @@ public class Server {
                         System.out.println("Spalte: ");
                         int spalteFigure = Integer.parseInt(sc.nextLine());
 
-                        System.out.println("Wohin wollen Sie sie hinbewegen?");
+                        System.out.println("Wohin willst du sie bewegen?");
 
                         System.out.println("Reihe: ");
                         int reiheMove = Integer.parseInt(sc.nextLine());
@@ -113,7 +113,7 @@ public class Server {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Eroor during serialization");
+            System.out.println("Error during serialization");
             System.exit(1);
         }
     }
