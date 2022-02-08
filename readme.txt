@@ -1,3 +1,7 @@
+Ablauf von Programm: Server starten und gewünschten Port eingeben. Client starten und IP-Adresse und Port eingeben.
+                     Der Server ist Farbe Weiß und der Client Schwarz.
+                     Um eine Figur zu bewegen die aktuelle Position und die gewünschte Position eingeben.
+
 Stundenzuteilung: https://docs.google.com/spreadsheets/d/1zpfXyvyF_nigoscqA71HVnvOh87TN-A9sygwrs8bT_w/edit?usp=sharing
 Projektplan: https://docs.google.com/document/d/1vgTVxoMi50T9wvQSNtfV16i2mO0qhg53DGHfCkq3nic/edit?usp=sharing
 1. Bericht: https://docs.google.com/document/d/1mSflBf9AG52R8YDonjNBjKtRI7bKaRq1vdaTDjVcilA/edit?usp=sharing
