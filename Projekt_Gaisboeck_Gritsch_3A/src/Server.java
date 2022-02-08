@@ -39,6 +39,8 @@ public class Server {
             server = new ServerSocket(port);
             soc = server.accept();
 
+            System.out.println("Du bist weiß");
+
             //input
             InputStream is = soc.getInputStream();
             ObjectInput oi = new ObjectInputStream(is);

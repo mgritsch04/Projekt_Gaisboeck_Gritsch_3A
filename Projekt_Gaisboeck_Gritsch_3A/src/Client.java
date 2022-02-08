@@ -23,6 +23,8 @@ public class Client {
             int port = Integer.parseInt(sc.nextLine());
             Socket soc = new Socket(ipAdress, port);
 
+            System.out.println("Du bist schwarz");
+
             OutputStream os = soc.getOutputStream();
             ObjectOutput obj = new ObjectOutputStream(os);
 
