@@ -74,7 +74,6 @@ public class Client {
                             System.out.println("Bitte bleibe im Feld");
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
                         System.out.println("ERROR");
                     }
 

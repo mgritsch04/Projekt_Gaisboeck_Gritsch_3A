@@ -5,6 +5,30 @@ import java.util.Scanner;
 
 public class Spielfeld implements Serializable {
 
+    public static void main(String[] args) {
+        Spielfeld s = new Spielfeld();
+        s.moveFigure(6, 4, 4, 4);
+        s.moveFigure(1, 5, 3, 5);
+        s.moveFigure(4, 4, 3, 5);
+        s.moveFigure(0, 6, 2, 7);
+        s.moveFigure(3, 5, 2, 5);
+        s.moveFigure(1, 4, 3, 4);
+        s.moveFigure(2, 5, 1, 5);
+        s.moveFigure(0, 5, 5, 0);
+        s.moveFigure(6, 7, 4, 7);
+        s.moveFigure(0, 7, 0, 5);
+        s.moveFigure(6, 6, 5, 6);
+        s.moveFigure(0, 5, 0, 4);
+
+        s.print();
+        System.out.println(s.spielfeld[1][5].position.Reihe + " " + s.spielfeld[1][5].position.Spalte);
+        System.out.println(s.spielfeld[1][5].possibleMoves[0][5]);
+        System.out.println(s.spielfeld[1][5].felderNachVorne);
+        s.spielfeld[1][5].possibleMoves = s.spielfeld[1][5].possibleMoves();
+        System.out.println(s.spielfeld[1][5].possibleMoves[0][5]);
+        s.moveFigure(1, 5, 0, 5);
+    }
+
     Figur[][] spielfeld = new Figur[8][8];
 
     public Spielfeld() {
@@ -141,7 +165,7 @@ public class Spielfeld implements Serializable {
 
     public String moveFigure(int reiheAkt, int spalteAkt, int reiheNeu, int spalteNeu) {
         spielfeld[reiheAkt][spalteAkt].felderNachVorne = spielfeld[reiheAkt][spalteAkt].felderNachVorne + 1;
-        spielfeld[reiheAkt][spalteAkt].felderNachVorne = spielfeld[reiheAkt][spalteAkt].felderNachHinten + 1;
+        spielfeld[reiheAkt][spalteAkt].felderNachHinten = spielfeld[reiheAkt][spalteAkt].felderNachHinten + 1;
         spielfeld[reiheAkt][spalteAkt].felderBerechnen();
         spielfeld[reiheAkt][spalteAkt].possibleMoves = spielfeld[reiheAkt][spalteAkt].possibleMoves();
 
@@ -166,7 +190,6 @@ public class Spielfeld implements Serializable {
                     spielfeld[reiheAkt][spalteAkt].possibleMoves[reiheAkt + 1][spalteAkt - 1] = false;
                 }
             }
-
         }
 
         OUTER:
@@ -394,7 +417,7 @@ public class Spielfeld implements Serializable {
             if (spielfeld[reiheAkt][spalteAkt].isWhite) {
                 if (spalteAkt == spalteNeu) {
                     //vorne
-                    if (reiheAkt > reiheNeu) {
+                    if (reiheAkt > reiheNeu && reiheAkt - 1 != reiheNeu) {
                         for (int i = reiheAkt - 1; i > reiheNeu; i--) {
                             if (checkPositionForFigure(i, spalteAkt)) {
                                 figurebetween = true;

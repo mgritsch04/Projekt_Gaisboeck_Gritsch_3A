@@ -96,7 +96,6 @@ public class Server {
                         }
                     } catch (Exception e) {
                         System.out.println("ERROR");
-                        e.printStackTrace();
                     }
                 }
                 if (!check.equals("Schachmatt")) {

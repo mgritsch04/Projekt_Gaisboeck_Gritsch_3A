@@ -11,12 +11,14 @@ public class Bauer extends Figur implements Serializable {
         white = isWhite;
         possibleMoves();
         position = postion;
-//        isFirstMove = true;
+        //        isFirstMove = true;
+
     }
 
     @Override
     public boolean[][] possibleMoves() {
         boolean[][] possibleMoves = new boolean[8][8];
+        this.felderNachVorne = this.felderNachVorne + 1;
 
         //Alle Positionen auf false setzen;
         for (boolean[] possibleMove : possibleMoves) {
@@ -46,7 +48,7 @@ public class Bauer extends Figur implements Serializable {
 
         } else {
             //1 nach vorne
-            if (felderNachVorne > 0) {
+            if (felderNachVorne >= 1) {
                 possibleMoves[position.Reihe - 1][position.Spalte] = true;
             }
 
